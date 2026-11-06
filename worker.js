@@ -33,7 +33,7 @@ const ROUTE_META = {
   "/code-of-conduct": { title: "Code of Conduct — FlyThe BG Community", description: "Read the FlyThe BG community standards for respectful, constructive, inclusive, and privacy-conscious participation across the project." },
   "/accessibility": { title: "Accessibility — FlyThe BG Website & Tools", description: "Read how FlyThe BG approaches keyboard access, touch controls, reduced motion, readable content, and reporting accessibility barriers." },
   "/security": { title: "Security at FlyThe BG — Vulnerability Reporting", description: "Learn how FlyThe BG protects its media tools and how to report a security vulnerability or privacy-sensitive problem." },
-  "/cookies": { title: "Cookies & Similar Technologies — FlyThe BG", description: "Read about cookies and similar browser or advertising technologies that may be used by FlyThe BG and its service providers." },
+  "/cookies": { title: "Cookies & Similar Technologies — FlyThe BG", description: "Read about essential browser storage, optional contact preferences and analytics that loads only after affirmative consent." },
   "/refunds": { title: "Refund Policy — FlyThe BG", description: "Read the FlyThe BG refund policy for free core tools and optional support payments processed by external providers." },
   "/data-requests": { title: "Privacy & Data Deletion Requests — FlyThe BG", description: "Submit an access, correction, erasure, consent withdrawal or privacy grievance request without creating an account." },
   "/affiliates": { title: "Affiliate & Referral Disclosure — FlyThe BG", description: "FlyThe BG disclosure for advertising, referral and affiliate relationships, including optional attribution and consent controls." },

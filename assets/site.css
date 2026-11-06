@@ -1650,3 +1650,35 @@ body.fb-404-mode #app{width:100%;height:100%;min-height:100vh}
 .contact-hide-button{font-size:13px}
 .contact-reveal-error{color:#f3b4a8;font-size:13px;margin-top:8px}
 @media(max-width:600px){.contact-number-gate{padding:15px}.contact-reveal-choice{padding:11px}}
+
+
+/* Privacy consent, privacy-request form and accessibility hardening */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid #ffe27a!important;outline-offset:3px!important;box-shadow:0 0 0 2px #070907!important}
+.fly-privacy-consent{position:fixed;z-index:10000;left:18px;right:18px;bottom:18px;max-width:1100px;margin:0 auto;padding:22px 24px;display:flex;align-items:flex-end;justify-content:space-between;gap:22px;background:#101713;color:#f7faf5;border:1px solid #8a9a8b;border-radius:18px;box-shadow:0 18px 70px rgba(0,0,0,.72);font:14px/1.55 Inter,ui-sans-serif,system-ui,sans-serif}
+.fly-privacy-consent-copy{min-width:0;max-width:700px}
+.fly-privacy-consent-kicker{margin:0 0 5px;color:#a9e8ff;font-size:10px;font-weight:900;letter-spacing:.16em}
+.fly-privacy-consent h2{margin:0 0 6px;color:#fff;font-size:21px;line-height:1.2}
+.fly-privacy-consent p{margin:0;color:#e1e8e1;font-size:13px}
+.fly-privacy-consent a{color:#a9e8ff;text-decoration:underline;text-underline-offset:3px}
+.fly-privacy-consent-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;flex-shrink:0}
+.fly-consent-button{min-height:42px;padding:10px 15px;border-radius:999px;border:1px solid #a9b6ac;background:#17221b;color:#fff;font:700 12px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.fly-consent-button:hover{background:#26382b}
+.fly-consent-primary{background:#a9e8ff;color:#071018;border-color:#a9e8ff}
+.fly-consent-primary:hover{background:#d5f4ff;color:#071018}
+.fly-privacy-options{margin:14px 0 0;padding:12px 14px;border:1px solid #617166;border-radius:12px;display:grid;gap:10px}
+.fly-privacy-options legend{padding:0 5px;color:#fff;font-weight:800}
+.fly-privacy-options label{display:flex;align-items:flex-start;gap:10px;color:#fff}
+.fly-privacy-options input{width:18px;height:18px;accent-color:#a9e8ff;flex:0 0 auto;margin-top:2px}
+.fly-privacy-options strong,.fly-privacy-options small{display:block}
+.fly-privacy-options small{color:#d2ddd4;font-size:12px}
+.fly-privacy-consent .fly-privacy-consent-note{font-size:11px;color:#d2ddd4}
+.fly-manage-privacy{margin:10px 0;padding:9px 13px;border:1px solid #a9b6ac;border-radius:999px;background:#101713;color:#f7faf5;font:700 12px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.fly-data-request-form{max-width:680px;margin:28px 0;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--panel);display:grid;gap:10px}
+.fly-data-request-form>label:not(.fly-data-request-consent){font-weight:800;color:var(--white);margin-top:7px}
+.fly-data-request-form input[type=email],.fly-data-request-form select,.fly-data-request-form textarea{width:100%;min-height:44px;padding:11px 13px;border:1px solid #68766c;border-radius:9px;background:#111812;color:#fff;font:inherit}
+.fly-data-request-form textarea{resize:vertical}
+.fly-data-request-consent{display:flex;align-items:flex-start;gap:10px;margin:12px 0;color:#e0e8df;font-size:13px;line-height:1.55}
+.fly-data-request-consent input{width:18px;height:18px;flex:0 0 auto;accent-color:var(--green);margin-top:2px}
+.fly-data-request-form button{justify-self:start}
+@media(max-width:760px){.fly-privacy-consent{left:10px;right:10px;bottom:10px;padding:17px;display:block;max-height:min(78vh,680px);overflow:auto}.fly-privacy-consent-actions{justify-content:stretch;margin-top:15px}.fly-consent-button{flex:1 1 auto}.fly-privacy-consent h2{font-size:19px}.fly-data-request-form{padding:17px}}
+@media(prefers-reduced-motion:reduce){.fly-privacy-consent *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}

@@ -269,13 +269,6 @@ function shell(content:string,title:string):string{
  </div>`;
 }
 
-function aiPulse():string{return `<section class="section ai-section reveal"><div class="section-kicker"><span>AI INTERNET PULSE</span><span>21 SEP 2026</span></div><div class="ai-grid">
-<article class="ai-card"><span>OPENAI</span><h3>GPT-6 Astra</h3><p>Hard end-to-end work, coding, research and computer use.</p><small>Tip: specify the output format before the task.</small></article>
-<article class="ai-card"><span>ANTHROPIC</span><h3>Claude Sonnet 5</h3><p>Agentic coding and knowledge-work capabilities.</p><small>Tip: give constraints, then let it work inside them.</small></article>
-<article class="ai-card"><span>GOOGLE</span><h3>Gemini 3.8 Flash</h3><p>Part of Google's September 2026 model wave.</p><small>Tip: screenshots can provide useful visual context.</small></article>
-<article class="ai-card"><span>GROK</span><h3>Grok 4.7</h3><p>Long-running coding and knowledge-work focus.</p><small>Tip: ask it to verify its answer before use.</small></article>
-</div><p class="micro-note">Model names and capabilities move fast. Snapshot, not endorsement.</p></section>`;}
-
 function postWork(kind:string):void{
  const modal=document.createElement("div");modal.className="modal-backdrop";modal.innerHTML=`<div class="celebrate" role="dialog" aria-modal="true"><button class="modal-x" aria-label="Close">×</button><div class="confetti">✦ ✨ ✦</div><p class="eyebrow">WORK COMPLETE</p><h2>Processing complete.</h2><p>Your ${kind} is ready. If FlyThe BG saved you time, you can optionally support the project:</p><div class="modal-actions"><a class="button primary" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">⭐ Give it a GitHub star</a><a class="button coffee" href="/support-the-developer">☕ Support the Developer</a><button class="button ghost dismiss">Maybe later</button></div><small>No pressure. FlyThe BG never assumes or records that a Buy Me a Coffee payment happened.</small></div>`;
  document.body.appendChild(modal);modal.querySelector(".modal-x")?.addEventListener("click",()=>modal.remove());modal.querySelector(".dismiss")?.addEventListener("click",()=>modal.remove());modal.addEventListener("click",e=>{if(e.target===modal)modal.remove()});

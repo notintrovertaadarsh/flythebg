@@ -508,7 +508,8 @@ function wirePrivacyConsent():void{
   w.gtag("js",new Date());w.gtag("config","G-S50DRFD37X",{anonymize_ip:true});
   const script=document.createElement("script");script.async=true;script.src="https://www.googletagmanager.com/gtag/js?id=G-S50DRFD37X";script.referrerPolicy="strict-origin-when-cross-origin";script.dataset.optionalAnalytics="true";document.head.appendChild(script);
  };
- const apply=():void=>{if(prefs?.analytics)enableAnalytics();else if(w.gtag)w.gtag("consent","update",{analytics_storage:"denied",ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});};
+ const clearAnalyticsCookies=():void=>{document.cookie.split(";").forEach(part=>{const name=part.split("=")[0]?.trim()||"";if(name==="_ga"||name==="_gid"||name.startsWith("_ga_")||name.startsWith("_gat")){document.cookie=name+"=; Max-Age=0; Path=/; SameSite=Lax";document.cookie=name+"=; Max-Age=0; Path=/; Domain=flythebg.com; SameSite=Lax; Secure";}});};
+ const apply=():void=>{if(prefs?.analytics)enableAnalytics();else{if(w.gtag)w.gtag("consent","update",{analytics_storage:"denied",ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});clearAnalyticsCookies();}};
  const render=():void=>{
   document.getElementById("fly-privacy-consent")?.remove();
   if(prefs&&!customize)return;

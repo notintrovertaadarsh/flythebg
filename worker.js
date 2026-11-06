@@ -34,6 +34,8 @@ const ROUTE_META = {
   "/accessibility": { title: "Accessibility — FlyThe BG Website & Tools", description: "Read how FlyThe BG approaches keyboard access, touch controls, reduced motion, readable content, and reporting accessibility barriers." },
   "/security": { title: "Security at FlyThe BG — Vulnerability Reporting", description: "Learn how FlyThe BG protects its media tools and how to report a security vulnerability or privacy-sensitive problem." },
   "/cookies": { title: "Cookies & Similar Technologies — FlyThe BG", description: "Read about cookies and similar browser or advertising technologies that may be used by FlyThe BG and its service providers." },
+  "/refunds": { title: "Refund Policy — FlyThe BG", description: "Read the FlyThe BG refund policy for free core tools and optional support payments processed by external providers." },
+  "/data-requests": { title: "Privacy & Data Deletion Requests — FlyThe BG", description: "Submit an access, correction, erasure, consent withdrawal or privacy grievance request without creating an account." },
   "/affiliates": { title: "Affiliate & Referral Disclosure — FlyThe BG", description: "FlyThe BG disclosure for advertising, referral and affiliate relationships, including optional attribution and consent controls." },
   "/changelog": { title: "FlyThe BG Changelog — Product & Privacy Updates", description: "See recent FlyThe BG changes across media tools, privacy, navigation, accessibility, performance, reliability, and SEO updates over time." },
 };
@@ -43,7 +45,7 @@ function normalizeRoute(pathname) {
   return ROUTES.has(normalized) ? normalized : null;
 }
 const SITE_URL = "https://flythebg.com";
-const GITHUB_URL = "https://github.com/StackPilotMAX/flythebg";
+const GITHUB_URL = "https://github.com/notintrovertaadarsh/flythebg";
 const INSTAGRAM_URL = "https://www.instagram.com/flythebg/";
 const TOOL_ROUTES = new Set(["/remove-bg","/image-compressor","/video-compressor","/passport-photo"]);
 
@@ -289,7 +291,7 @@ const SECURITY_HEADERS = {
   "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
   "Cross-Origin-Opener-Policy": "same-origin",
-  "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; connect-src 'self' https://api.github.com https://*.hf.space; img-src 'self' data: blob: https://d2ol7oe51mr4n9d.cloudfront.net; media-src 'self' https://d8j0ntlcm91z4.cloudfront.net https://d2ol7oe51mr4n9d.cloudfront.net; font-src 'self' https://fonts.gstatic.com; worker-src 'self' blob:; manifest-src 'self'"
+  "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; connect-src 'self' https://api.github.com https://*.hf.space https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: blob: https://d2ol7oe51mr4n9.cloudfront.net https://www.google-analytics.com; media-src 'self' https://d8j0ntlcm91z4.cloudfront.net https://d2ol7oe51mr4n9.cloudfront.net; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'"
 };
 
 function withSecurityHeaders(response) {

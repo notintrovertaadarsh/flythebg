@@ -52,10 +52,9 @@ body:not(.preload-complete) .header,body:not(.preload-complete) .planet-list,bod
 
 
 /* FlyThe BG — scroll editorial landing page */
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Space+Mono:wght@400;700&display=swap');
-.editorial{--ed-ink:#0B0E14;--ed-glacier:#F2F4F1;--ed-orange:#FF4D00;--ed-ease:cubic-bezier(.16,1,.3,1);font-family:"Archivo",Arial,sans-serif;font-stretch:74%;line-height:1.15}
+.editorial{--ed-ink:#0B0E14;--ed-glacier:#F2F4F1;--ed-orange:#FF4D00;--ed-ease:cubic-bezier(.16,1,.3,1);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-stretch:normal;line-height:1.15}
 .editorial *{border-radius:0!important;box-shadow:none!important}
-.editorial .ed-mono{font:400 11px/1.6 "Space Mono",monospace;letter-spacing:.16em;text-transform:uppercase}
+.editorial .ed-mono{font:400 11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.16em;text-transform:uppercase}
 .editorial .ed-wrap{width:100%;max-width:1240px;margin:auto;padding-inline:clamp(1.25rem,4vw,4rem)}
 .editorial .ed-pin{position:relative;--p:0}
 .editorial .ed-sticky{position:sticky;top:0;height:100svh;overflow:hidden}

@@ -546,7 +546,7 @@ function wireSpaceExperience():void{
  const MERCURY=BASE+"/d6fb8b6b-c15e-4aaa-9cf7-45bbb5e33372.jpg";
  const states:SpaceState[]=[
   {key:"mars",name:"Mars",next:"Earth",number:"[02]",href:"/remove-bg",portal:TO_EARTH,background:"mars-background",facts:[
-   ["TOOL:","Remove Background"],["PROCESSING:","AI background removal through the protected FlyThe BG Worker."],["MODEL:","rembg running inside private Hugging Face Spaces."],["STARTUP:","Cold starts can take around 20–25 seconds."]]},
+   ["TOOL:","Remove Background"],["PROCESSING:","AI background removal through the protected FlyThe BG Worker."],["MODEL:","rembg running on the configured Hugging Face Spaces processor."],["STARTUP:","Cold starts can take around 20–25 seconds."]]},
   {key:"earth",name:"Earth",next:"Venus",number:"[03]",href:"/image-compressor",portal:TO_VENUS,background:"earth-background",facts:[
    ["TOOL:","Image Compressor"],["PROCESSING:","Compression runs locally in your browser."],["PRIVACY:","Your original image does not need to leave your device."],["OUTPUT:","JPEG output with visible compression progress."]]},
   {key:"venus",name:"Venus",next:"Mercury",number:"[04]",href:"/video-compressor",portal:MERCURY,background:"venus-background",image:MERCURY,facts:[

@@ -19,6 +19,8 @@ FlyThe BG does not require an account for its core tools. Image and video compre
 - [FAQ](https://www.flythebg.com/faq): Answers about uploads, processing, privacy, limits, downloads and mobile use.
 - [Privacy Policy](https://www.flythebg.com/privacy): Processing, providers, retention and privacy boundaries.
 - [Terms of Use](https://www.flythebg.com/terms): Terms, acceptable use, third-party services and responsibilities.
+- [Refund Policy](https://www.flythebg.com/refunds): No-charge core tools and handling of optional support payments made through external providers.
+- [Privacy & Data Deletion Requests](https://www.flythebg.com/data-requests): Submit an access, correction, erasure, consent withdrawal or grievance request without an account.
 - [Contact](https://www.flythebg.com/contact): Product support, privacy, accessibility and security contact.
 - [Support the Developer](https://www.flythebg.com/support-the-developer): Optional support for maintaining the independent project.
 
@@ -45,4 +47,8 @@ FlyThe BG does not require an account for its core tools. Image and video compre
 
 - [Sitemap](https://www.flythebg.com/sitemap.xml): Complete list of published HTML URLs intended for discovery by search engines.
 - [Robots policy](https://www.flythebg.com/robots.txt): Public crawler access policy; the processing API is excluded from crawling.
-- [Project source](https://github.com/StackPilotMAX/flythebg): Public project repository and implementation source.
+- [Project source](https://github.com/notintrovertaadarsh/flythebg): Public project repository and implementation source.
+
+## Privacy choices
+
+The first-visit privacy banner offers Accept all, Reject optional and Customize with equal prominence. Essential browser storage is always active; Google Analytics (G-S50DRFD37X) is loaded only after an explicit analytics opt-in. Preferences are stored locally in the visitor's browser; there is no server-side consent ledger. Visitors can reopen Privacy choices from the footer. The current implementation does not enable advertising or marketing cookies.

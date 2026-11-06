@@ -1,16 +1,16 @@
 # FlyThe BG
 
-## Deployment status and private-repository access
+## Deployment status and repository access
 
-**GitHub repository:** `StackPilotMAX/flythebg` (currently private; production branch: `main`). **Hosting:** Cloudflare Workers with static Workers Assets; this is not a Netlify deployment. GitHub Actions typechecking/build success does **not** prove that Cloudflare's Git-connected builder can clone the repository or deploy the domain.
+**GitHub repository:** `notintrovertaadarsh/flythebg` (public; production branch: `main`). **Hosting:** Cloudflare Workers with static Workers Assets; this is not a Netlify deployment. GitHub Actions typechecking/build success does **not** prove that Cloudflare's Git-connected builder can clone the repository or deploy the domain.
 
-If Cloudflare stays at **Initializing** and never reaches cloning, installing or building, the failure is upstream of this project's build scripts. In Cloudflare, check the Workers Builds GitHub connection and verify the Cloudflare GitHub app has access to this **private** repository. Re-authorize/reconnect the app if the repository was made private after the integration was established. Also check Cloudflare's status and build logs. A source-code commit cannot force Cloudflare's initialization queue to advance.
+If Cloudflare stays at **Initializing** and never reaches cloning, installing or building, the failure is upstream of this project's build scripts. In Cloudflare, check the Workers Builds GitHub connection and verify the Cloudflare GitHub app is connected to the current repository and production branch. Also check Cloudflare's status and build logs. A source-code commit cannot force Cloudflare's initialization queue to advance.
 
 **Independent fallback:** GitHub Actions > **Deploy Cloudflare (GitHub fallback)** > Run workflow on `main`. This route builds in GitHub and deploys via Cloudflare's API, avoiding Cloudflare's Git clone/build pipeline. Configure `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` as GitHub Actions secrets; the token needs the account's Workers Scripts Edit permission. Set `HF_ACCESS_TOKEN` **only** as a Cloudflare production Worker runtime secret, not a GitHub build secret. This fallback is manual so it does not race Cloudflare auto-deployments. See [deployment recovery runbook](docs/DEPLOYMENT_RUNBOOK.md).
 
 ### Public repository and secret-safety policy
 
-The repository may be made public only after reviewing **the entire Git history**, not just current files. Never commit or paste actual Hugging Face, GitHub, Cloudflare or other API tokens, private keys, `.dev.vars`, `.env` files or credentials into source, docs, screenshots, workflow YAML or build logs. `.env.example` must contain placeholders only. Production credentials belong in Cloudflare Worker runtime secrets; GitHub deployment credentials belong in GitHub Actions encrypted secrets.
+This repository is public. Review **the entire Git history**, not just current files, and rotate any credential that may ever have been exposed. Never commit or paste actual Hugging Face, GitHub, Cloudflare or other API tokens, private keys, `.dev.vars`, `.env` files or credentials into source, docs, screenshots, workflow YAML or build logs. `.env.example` must contain placeholders only. Production credentials belong in Cloudflare Worker runtime secrets; GitHub deployment credentials belong in GitHub Actions encrypted secrets.
 
 Both CI and manual deployment run `node scripts/check-secrets.mjs`, which checks the **current working tree** for several recognizable token/key patterns without printing detected values. This is a preventive check, **not proof that no credentials have ever been leaked**. It cannot detect every token format, previous commits, deleted files, forks, external logs or screenshots. Enable GitHub secret scanning and push protection where available. Before switching visibility to public, inspect full history with a dedicated scanner such as Gitleaks, review Actions logs and rotate/revoke any credential ever committed or exposed. Removing a token from the latest commit or making the repository private does not revoke it.
 
@@ -84,7 +84,7 @@ The site has been redesigned around the main operational principles relevant to 
 6. Children: the privacy notice acknowledges the Act's under-18 definition and avoids intentionally designing the service to solicit children's data.
 7. Security: same-origin API routing, HTTPS deployment, CSP, HSTS, nosniff, restrictive permissions, no client-side AI credential, no-store API responses, type/size validation and robots exclusion for /api/.
 8. Processor boundary: the Hugging Face credential is read only by the Cloudflare Function. The rembg model runs on Hugging Face Spaces. FlyThe BG does not intentionally retain uploaded background-removal images after the processing flow, but the external Gradio runtime can create transient processing files while a request is running. Space-level cleanup/retention must be configured and verified separately.
-9. No advertising tracker in the application: the source does not bundle analytics/advertising tracking code. Any future advertising integration must be separately reviewed for privacy, notice and consent implications.
+9. Consent-gated analytics: Google Analytics (G-S50DRFD37X) is loaded only after affirmative opt-in. Reject optional and Accept all are both offered; analytics can be withdrawn through the footer Privacy choices control. No advertising SDK or marketing email programme is currently bundled.
 10. Request isolation: each background-removal request is expected to receive only its own result. The Space application must not use shared global image state or shared filenames that could cross requests.
 11. Retention transparency: FlyThe BG does not claim that an external processor has zero transient storage unless that behavior has been technically verified. The privacy notice describes this boundary explicitly.
 
@@ -195,3 +195,23 @@ FlyThe BG does not offer accounts or authentication. That means there is no acco
 ### Contact-number reveal
 
 The Contact page shows the operator's phone number only after an explicit safety acknowledgement. A separate, unchecked option can save the reveal preference in a first-party cookie for 30 days; the cookie stores only a flag, not the phone number. The number is supplied by Cloudflare Worker secret CONTACT_PHONE and is not embedded in the public JavaScript bundle. To configure it from the repository environment, run `npx wrangler secret put CONTACT_PHONE` and enter the number at the secure prompt. The UI gate is a privacy/friction measure, not authentication or access control; anyone technically capable of calling the public endpoint may request the number.
+
+
+## Privacy, consumer clarity and accessibility implementation (6 November 2026)
+
+- Added a first-visit privacy choices banner with equally visible **Accept all**, **Reject optional** and **Customize** actions. Essential storage is limited to the saved choice; analytics is off until explicit opt-in and can be withdrawn from the footer. The choice is stored locally in the visitor's browser; there is no server-side consent ledger.
+- Removed the unconditional Google Analytics script from the document head. Google Analytics is injected only after the visitor opts in. Removed the external Google Fonts stylesheet; the site uses system/local font stacks.
+- Added a Refund Policy and a Privacy & Data Deletion Requests page. The latter prepares an email in the visitor's own mail application and does not submit or store form values on the website.
+- Added policy links to the footer, sitemap and llms.txt. The current core tools do not charge a usage fee; optional support is processed by the external support provider. There is no on-site checkout or advertising SDK in the current source.
+- Existing file-processing confirmations remain required before a selected file is processed. The UI warns against submitting identifiable children's images unless any legally required verifiable guardian consent has been obtained; the checkbox is not an age-verification mechanism.
+- Added explicit image-alt fallbacks for dynamically inserted preview images and visible keyboard focus styling. This is an implementation baseline, not a completed independent WCAG audit.
+- No marketing email list or newsletter sender is currently implemented, so an unsubscribe link is not applicable to current product behavior. If marketing email is introduced, opt-in, sender identification and a working unsubscribe mechanism must be implemented before sending.
+- Third-party integration inventory: Cloudflare Workers/Assets for hosting and API boundary; Hugging Face/Gradio only for a user-requested background-removal job; CloudFront for hosted visual assets; public GitHub API for repository star count; Google Analytics only after opt-in; Buy Me a Coffee only after a user follows the external support link; Instagram/GitHub are outbound links. No iframe embed or advertising SDK was found in the current application source.
+
+### Font and image licensing status
+
+The external Google Fonts stylesheet has been removed; no remotely hosted font is requested by the page. The CSS uses local/system font fallbacks. Existing logo, hero poster, video and other visual assets are retained as project assets, but their original authorship and license evidence must be checked against the source files/asset provider before redistribution. Do not add stock imagery, icon packs, fonts or other third-party assets without recording the source, license, attribution and any redistribution conditions. This repository change does not certify rights to legacy assets whose provenance has not been independently verified.
+
+### Important compliance limitation
+
+These changes are engineering controls and clearer notices, not a legal opinion, regulator approval or guarantee of compliance. In particular, the privacy choices are stored locally rather than in a server-side consent ledger; the current project does not independently verify a parent/guardian's identity or consent for child data; external processor retention and mailbox handling remain subject to those providers' configurations; and the operator should confirm the support inbox is monitored and response timelines are workable. Obtain jurisdiction-specific legal review before making a compliance claim.

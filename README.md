@@ -174,6 +174,8 @@ Trust and project:
 - /data-requests
 - /security
 - /accessibility
+- /security
+- /accessibility
 - /code-of-conduct
 - /changelog
 

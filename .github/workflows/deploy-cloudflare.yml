@@ -134,6 +134,7 @@ jobs:
           verify_route "/refund-policy" "External Support Payment Information"
           verify_route "/affiliates" "Affiliate, Advertising"
           verify_route "/data-requests" "Privacy & Data Deletion Requests"
+          verify_route "/accessibility" "Accessibility"
           verify_route "/security" "Security — FlyThe BG"
       - name: Publish resilient status
         if: always()

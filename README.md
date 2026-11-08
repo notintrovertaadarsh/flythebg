@@ -188,12 +188,7 @@ No verified public support, privacy/grievance or security-reporting email or pos
 
 ### Account-free DPDP note (reviewed 2026-11-08)
 
-FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, support correspondence, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary; `/data-requests` prepares a copyable local draft only. A verified recipient address remains an owner action. Verify that the inbox is live/monitored, the operator identity is correctly disclosed, external processor retention is understood, and the child-data/guardian-consent issue is resolved before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.
-
-
-### Contact-number reveal
-
-The Contact page shows the operator's phone number only after an explicit safety acknowledgement. A separate, unchecked option can save the reveal prThe application does not publish an operator telephone number and does not collect visitor phone numbers. The legacy `CONTACT_PHONE` Worker secret is no longer read by the current code; remove it from Cloudflare settings if it exists.
+FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, messages voluntarily sent through the public project profile, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary; `/data-requests` prepares a copyable local draft only and no verified recipient address is configured. Confirm the operator identity and monitored contact channel, verify external processor retention, and keep the prohibition on identifiable children's photos/videos until a lawful verifiable parental-consent process exists before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.
 
 
 ## Privacy, consumer clarity and accessibility implementation (8 November 2026)

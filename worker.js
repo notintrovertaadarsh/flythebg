@@ -37,7 +37,6 @@ const ROUTE_META = {
   "/security": { title: "Security at FlyThe BG — Vulnerability Reporting", description: "Learn how FlyThe BG protects its media tools and how to report a security vulnerability or privacy-sensitive problem." },
   "/cookies": { title: "Cookies & Similar Technologies — FlyThe BG", description: "Read about essential browser storage, optional contact preferences and analytics that loads only after affirmative consent." },
   "/cookie-policy": { title: "Cookie Policy — FlyThe BG", description: "See the current inventory of FlyThe BG cookies, local storage, analytics and third-party asset requests." },
-  "/refunds": { title: "Refund Policy — FlyThe BG", description: "Read the FlyThe BG refund policy for free core tools and optional support payments processed by external providers." },
   "/refund-policy": { title: "External Support Payment Information — FlyThe BG", description: "Learn how optional support contributions are processed by third-party providers and where to ask payment or refund questions." },
   "/data-requests": { title: "Privacy & Data Deletion Requests — FlyThe BG", description: "Submit an access, correction, erasure, consent withdrawal or privacy grievance request without creating an account." },
   "/affiliates": { title: "Affiliate & Referral Disclosure — FlyThe BG", description: "Current FlyThe BG disclosure: no affiliate-tracking integration found; optional support links and ads.txt status are explained." },
@@ -304,34 +303,6 @@ function withSecurityHeaders(response) {
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
-const CONTACT_RATE_WINDOW_MS = 15 * 60 * 1000;
-const CONTACT_RATE_MAX = 10;
-const contactRevealBuckets = new Map();
-const CONTACT_RATE_SALT = crypto.randomUUID();
-
-async function checkContactRevealLimit(request) {
-  const now = Date.now();
-  for (const [key, bucket] of contactRevealBuckets) {
-    if (now >= bucket.resetAt) contactRevealBuckets.delete(key);
-  }
-  while (contactRevealBuckets.size >= 2048) {
-    const oldest = contactRevealBuckets.keys().next().value;
-    if (oldest === undefined) break;
-    contactRevealBuckets.delete(oldest);
-  }
-  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(CONTACT_RATE_SALT + "|" + ip));
-  const key = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
-  const current = contactRevealBuckets.get(key);
-  if (!current || now >= current.resetAt) {
-    contactRevealBuckets.set(key, { count: 1, resetAt: now + CONTACT_RATE_WINDOW_MS });
-    return true;
-  }
-  if (current.count >= CONTACT_RATE_MAX) return false;
-  current.count += 1;
-  return true;
-}
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -344,9 +315,10 @@ export default {
     const canonicalLegalMap = {
       "/privacy": "/privacy-policy",
       "/terms": "/terms-and-conditions",
-      "/cookies": "/cookie-policy",
-      "/refunds": "/refund-policy"
+      "/cookies": "/cookie-policy"
     };
+    if (url.pathname === "/refund-policy" || url.pathname === "/refunds") return withSecurityHeaders(new Response("This page is no longer available.", { status: 410, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } }));
+
     if (canonicalLegalMap[url.pathname]) {
       return Response.redirect(new URL(canonicalLegalMap[url.pathname], request.url).toString(), 301);
     }
@@ -402,31 +374,6 @@ export default {
     if (url.pathname === "/api/remove-bg") {
       return onRequest({ request, env, params: {}, waitUntil: () => {} });
     }
-    if (url.pathname === "/api/contact-details") {
-      const headers = {
-        "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "no-store, max-age=0",
-        "Pragma": "no-cache",
-        "X-Content-Type-Options": "nosniff",
-        "Referrer-Policy": "no-referrer"
-      };
-      const respond = (data, status) => withSecurityHeaders(new Response(JSON.stringify(data), { status, headers }));
-      if (request.method !== "POST") return respond({ error: "Use POST to request contact details." }, 405);
-      const origin = request.headers.get("Origin") || "";
-      if (!new Set(["https://flythebg.com", "https://www.flythebg.com"]).has(origin)) return respond({ error: "Contact details can only be requested from the FlyThe BG website." }, 403);
-      if (!(await checkContactRevealLimit(request))) return respond({ error: "Too many contact-detail requests. Please try again later." }, 429);
-      if (!(request.headers.get("Content-Type") || "").toLowerCase().includes("application/json")) return respond({ error: "A JSON acknowledgement is required." }, 415);
-      let payload;
-      try { payload = await request.json(); } catch { return respond({ error: "The request could not be read." }, 400); }
-      const cookie = request.headers.get("Cookie") || "";
-      const remembered = cookie.split(";").some(part => part.trim() === "flythebg_contact_reveal=1");
-      if (payload?.acknowledged !== true && !remembered) return respond({ error: "Please acknowledge the phone-display notice first." }, 403);
-      const contactPhone = typeof env.CONTACT_PHONE === "string" ? env.CONTACT_PHONE.trim() : "";
-      if (!contactPhone) return respond({ error: "Phone contact is not configured yet. Please use support@flythebg.com." }, 503);
-      return respond({ phone: contactPhone }, 200);
-    }
-
-
     if (url.pathname === "/ads.txt") {
       return new Response("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0\n", {
         status: 200,

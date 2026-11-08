@@ -16,7 +16,7 @@ Both CI and manual deployment run `node scripts/check-secrets.mjs`, which checks
 
 The deploy script never embeds `HF_ACCESS_TOKEN` into build artifacts or writes it to a temporary file. It uses Wrangler; configure runtime secrets separately. Do not print environment variables in CI. If any secret may have been exposed, **revoke and rotate it before publishing**.
 
-FlyThe BG is an independent media-tools project operated by Aadarsh Maurya as an individual; it is not a registered company or business entity.
+FlyThe BG is an independent media-tools project. The operator’s verified legal name and public contact details are pending owner confirmation; this README does not assert a registered legal entity.
 
 ## Major architecture
 
@@ -111,7 +111,6 @@ Build:
 
 Required Cloudflare secret:
 - `HF_ACCESS_TOKEN` — Secret only.
-- `CONTACT_PHONE` — optional Worker runtime secret for the operator contact number. Set it only in Cloudflare Worker secrets; do not put the value in source, client code, `.env.example`, GitHub Actions logs or the repository.
 
 The Hugging Face Space and API endpoint are fixed in the server-side Worker. The rembg model can take around 20–25 seconds to start after a cold start; the Worker provides startup grace time before reporting that the processor did not become ready. Never put the Hugging Face token in GitHub, HTML, TypeScript, public build output, localStorage, sessionStorage or `wrangler.toml`.
 
@@ -169,11 +168,8 @@ Trust and project:
 - /privacy-policy
 - /terms-and-conditions
 - /cookie-policy
-- /refund-policy
 - /affiliates
 - /data-requests
-- /security
-- /accessibility
 - /security
 - /accessibility
 - /code-of-conduct
@@ -185,16 +181,14 @@ The application uses one UI shell with responsive navigation. Clean routes are r
 
 AGPL-3.0.
 
-## Contact
+## Contact and owner confirmations
 
-support@flythebg.com
-
-This is the official FlyThe BG support address for product questions, privacy requests, security reports and project communication.
+No verified public support, privacy/grievance or security-reporting email or postal address has yet been confirmed for publication. No public telephone number is displayed. See `docs/OWNER_CONFIRMATIONS.md` before publishing any contact details.
 
 
 ### Account-free DPDP note (reviewed 2026-11-08)
 
-FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, support correspondence, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary; `/data-requests` prepares a mailto draft in the visitor's own email application. Verify that the inbox is live/monitored, the operator identity is correctly disclosed, external processor retention is understood, and the child-data/guardian-consent issue is resolved before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.
+FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, support correspondence, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary; `/data-requests` prepares a copyable local draft only. A verified recipient address remains an owner action. Verify that the inbox is live/monitored, the operator identity is correctly disclosed, external processor retention is understood, and the child-data/guardian-consent issue is resolved before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.
 
 
 ### Contact-number reveal
@@ -206,8 +200,8 @@ The Contact page shows the operator's phone number only after an explicit safety
 
 - Added a first-visit privacy choices banner with equally visible **Accept all**, **Reject optional** and **Customize** actions. Essential storage is limited to the saved choice; analytics is off until explicit opt-in and can be withdrawn from the footer. The choice is stored locally in the visitor's browser; there is no server-side consent ledger.
 - Removed the unconditional Google Analytics script from the document head. Google Analytics is injected only after the visitor opts in. Removed the external Google Fonts stylesheet; the site uses system/local font stacks.
-- Added a Refund Policy and a Privacy & Data Deletion Requests page. The latter prepares an email in the visitor's own mail application and does not submit or store form values on the website.
-- Added policy links to the footer, sitemap and llms.txt. The current core tools do not charge a usage fee; optional support is processed by the external support provider. There is no on-site checkout or advertising SDK in the current source.
+- Added a Privacy Request Draft page. It prepares and displays a local draft only; it does not submit or store form values and no recipient address is currently configured.
+- Added Privacy, Terms, Cookie Policy, Affiliate Disclosure, Security, Accessibility and Privacy Request Draft links to the footer, sitemap and llms.txt. The core tools are free; optional support is handled by an external provider. FlyThe BG has no on-site checkout or advertising SDK in the current source.
 - Existing file-processing confirmations remain required before a selected file is processed. The Privacy Policy, Terms and all file-tool notices prohibit photos or videos depicting identifiable children until a lawful verifiable parental-consent process exists. The checkbox is a user declaration, not age or guardian verification.
 - All authored image elements include an explicit alt attribute; build smoke checks fail if an image tag is missing one. Visible focus styling, a skip link, dialog focus management, keyboard-adjustable passport cropping and reduced-motion video loading are implemented. The build also checks selected core palette text/accent pairs against 4.5:1 contrast; this is not a complete contrast audit. This is an engineering baseline, not a completed independent WCAG audit.
 - No marketing email list or newsletter sender is currently implemented, so an unsubscribe link is not applicable to current product behavior. If marketing email is introduced, opt-in, sender identification and a working unsubscribe mechanism must be implemented before sending.

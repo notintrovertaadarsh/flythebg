@@ -108,14 +108,33 @@ jobs:
         env:
           VERIFY_URL: ${{ inputs.verify_url }}
         run: |
+          base="${VERIFY_URL%/}"
           for attempt in 1 2 3 4 5; do
-            if curl --fail --location --silent --show-error --max-time 20 "$VERIFY_URL" -o /tmp/flythebg-health.html; then
-              if grep -qi 'flythebg|FlyThe BG' /tmp/flythebg-health.html; then exit 0; fi
+            if curl --fail --location --silent --show-error --max-time 20 "$base/" -o /tmp/flythebg-health.html && grep -Eqi 'flythebg|FlyThe BG' /tmp/flythebg-health.html; then
+              break
             fi
             sleep 12
           done
-          echo "::warning::Public URL verification did not confirm the FlyThe BG HTML shell."
-          exit 1
+          if ! test -s /tmp/flythebg-health.html || ! grep -Eqi 'flythebg|FlyThe BG' /tmp/flythebg-health.html; then
+            echo "::error::Public URL verification did not confirm the FlyThe BG HTML shell."
+            exit 1
+          fi
+          verify_route() {
+            route="$1"
+            expected="$2"
+            curl --fail --location --silent --show-error --max-time 20 "$base$route" -o /tmp/flythebg-route.html
+            if ! grep -Fqi "$expected" /tmp/flythebg-route.html; then
+              echo "::error::Route $route did not return expected server-side page metadata."
+              exit 1
+            fi
+          }
+          verify_route "/privacy-policy" "Privacy Policy"
+          verify_route "/terms-and-conditions" "Terms and Conditions"
+          verify_route "/cookie-policy" "Cookie Policy"
+          verify_route "/refund-policy" "External Support Payment Information"
+          verify_route "/affiliates" "Affiliate, Advertising"
+          verify_route "/data-requests" "Privacy & Data Deletion Requests"
+          verify_route "/security" "Security — FlyThe BG"
       - name: Publish resilient status
         if: always()
         run: |

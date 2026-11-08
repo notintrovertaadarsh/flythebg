@@ -48,7 +48,6 @@ const legalRoutes = [
   "/privacy-policy",
   "/terms-and-conditions",
   "/cookie-policy",
-  "/refund-policy",
   "/data-requests",
   "/affiliates",
   "/security",
@@ -63,8 +62,7 @@ for (const route of legalRoutes) {
 for (const [oldRoute, newRoute] of [
   ["/privacy", "/privacy-policy"],
   ["/terms", "/terms-and-conditions"],
-  ["/cookies", "/cookie-policy"],
-  ["/refunds", "/refund-policy"]
+  ["/cookies", "/cookie-policy"]
 ]) {
   if (!worker.includes('"' + oldRoute + '": "' + newRoute + '"')) throw new Error("Legacy legal redirect missing: " + oldRoute);
 }

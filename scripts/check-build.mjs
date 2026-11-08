@@ -72,6 +72,15 @@ for (const [oldRoute, newRoute] of [
 
 if (!source.includes("function wirePrivacyConsent")) throw new Error("Privacy consent controller missing");
 if (!source.includes("flythebg_privacy_preferences_v2")) throw new Error("Consent preference storage missing");
+if (!source.includes('localStorage.removeItem("flythebg_privacy_preferences_v1")')) throw new Error("Old consent version must be cleared for fresh consent");
+if (!source.includes('document.querySelectorAll<HTMLElement>(".fly-site-footer,.fb-home-footer")')) throw new Error("Privacy choices control must exist on home and tool footers");
+if (!source.includes("Do not submit an identifiable child’s image")) throw new Error("Child-image prohibition notice missing");
+if (!source.includes("aria-keyshortcuts")) throw new Error("Passport crop keyboard instructions missing");
+if (!source.includes('box.addEventListener("keydown",event=>')) throw new Error("Passport crop keyboard controls missing");
+if (!source.includes("visually-hidden-file-input") || !css.includes(".passport-upload-zone:focus-within")) throw new Error("Passport upload input is not keyboard visible");
+if (!source.includes('aria-labelledby="work-complete-title"') || !source.includes('dialog?.addEventListener("keydown"')) throw new Error("Completion dialog focus management missing");
+if (!source.includes('panel?.addEventListener("keydown"')) throw new Error("404 dialog focus trap missing");
+if (!source.includes('data-404-video') || !source.includes('prefers-reduced-motion: reduce')) throw new Error("Reduced-motion video controls missing");
 if (!source.includes("G-S50DRFD37X")) throw new Error("Analytics property disclosure missing");
 if (!source.includes('script.src="https://www.googletagmanager.com/gtag/js?id=G-S50DRFD37X"')) throw new Error("Consent-gated analytics loader missing");
 if (html.includes("googletagmanager.com") || html.includes("google-analytics.com")) throw new Error("Analytics must not load from the static HTML shell");
@@ -93,7 +102,32 @@ if (!api.includes("MAX_OUTPUT_BYTES")) throw new Error("Background API output-si
 if (!robots.includes("Disallow: /api/") || !robots.includes("Sitemap: https://www.flythebg.com/sitemap.xml")) throw new Error("Robots policy missing API exclusion or sitemap");
 if (!security.includes("Expires:") || !security.includes("Contact: mailto:") || !security.includes("Canonical: https://www.flythebg.com/.well-known/security.txt")) throw new Error("RFC 9116 security.txt fields missing");
 if (!ads.includes("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0")) throw new Error("ads.txt seller declaration missing");
-if (!html.includes("20261108-legal-2")) throw new Error("HTML asset cache key was not refreshed");
+if (!html.includes("20261108-legal-3")) throw new Error("HTML asset cache key was not refreshed");
 if (!css.includes(".skip-link:focus")) throw new Error("Keyboard skip-link styling missing");
+
+
+// Core theme text/accent pairs are checked against WCAG AA normal-text contrast (4.5:1).
+const color = (name) => {
+  const match = css.match(new RegExp("--" + name + ":\\s*(#[0-9a-f]{6})", "i"));
+  if (!match) throw new Error("Missing theme color token: " + name);
+  return match[1];
+};
+const luminance = (hex) => {
+  const channels = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
+  return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+};
+const contrast = (a, b) => {
+  const x = luminance(a), y = luminance(b);
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+};
+for (const [foreground, background] of [
+  ["white", "black"], ["muted", "black"], ["green", "black"], ["pink", "black"], ["yellow", "black"],
+  ["white", "panel"], ["muted", "panel"], ["green", "panel"],
+  ["ed-glacier", "ed-ink"], ["ed-orange", "ed-ink"], ["landing-muted", "landing-paper"],
+  ["landing-ink", "landing-paper"], ["fly-text", "fly-bg"], ["fly-muted", "fly-bg"]
+]) {
+  const ratio = contrast(color(foreground), color(background));
+  if (ratio < 4.5) throw new Error("Core palette contrast below WCAG AA: " + foreground + " on " + background + " = " + ratio.toFixed(2));
+}
 
 console.log("FlyThe BG legal, privacy, security, accessibility and deployment artifact smoke checks passed.");

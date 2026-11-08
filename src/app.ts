@@ -279,8 +279,24 @@ function shell(content:string,title:string):string{
 }
 
 function postWork(kind:string):void{
- const modal=document.createElement("div");modal.className="modal-backdrop";modal.innerHTML=`<div class="celebrate" role="dialog" aria-modal="true"><button class="modal-x" aria-label="Close">×</button><div class="confetti">✦ ✨ ✦</div><p class="eyebrow">WORK COMPLETE</p><h2>Processing complete.</h2><p>Your ${kind} is ready. If FlyThe BG saved you time, you can optionally support the project:</p><div class="modal-actions"><a class="button primary" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">⭐ Give it a GitHub star</a><a class="button coffee" href="/support-the-developer">☕ Support the Developer</a><button class="button ghost dismiss">Maybe later</button></div><small>No pressure. FlyThe BG never assumes or records that a Buy Me a Coffee payment happened.</small></div>`;
- document.body.appendChild(modal);modal.querySelector(".modal-x")?.addEventListener("click",()=>modal.remove());modal.querySelector(".dismiss")?.addEventListener("click",()=>modal.remove());modal.addEventListener("click",e=>{if(e.target===modal)modal.remove()});
+ const returnFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
+ const modal=document.createElement("div");modal.className="modal-backdrop";modal.innerHTML=`<div class="celebrate" role="dialog" aria-modal="true" aria-labelledby="work-complete-title" tabindex="-1"><button class="modal-x" type="button" aria-label="Close">×</button><div class="confetti" aria-hidden="true">✦ ✨ ✦</div><p class="eyebrow">WORK COMPLETE</p><h2 id="work-complete-title">Processing complete.</h2><p>Your ${kind} is ready. If FlyThe BG saved you time, you can optionally support the project:</p><div class="modal-actions"><a class="button primary" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">Give it a GitHub star</a><a class="button coffee" href="/support-the-developer">Support the Developer</a><button class="button ghost dismiss" type="button">Maybe later</button></div><small>No pressure. FlyThe BG never assumes or records that a Buy Me a Coffee payment happened.</small></div>`;
+ const dialog=modal.querySelector<HTMLElement>("[role=dialog]");
+ const close=()=>{modal.remove();returnFocus?.focus();};
+ document.body.appendChild(modal);
+ modal.querySelector(".modal-x")?.addEventListener("click",close);
+ modal.querySelector(".dismiss")?.addEventListener("click",close);
+ modal.addEventListener("click",event=>{if(event.target===modal)close();});
+ dialog?.addEventListener("keydown",event=>{
+  if(event.key==="Escape"){event.preventDefault();close();return;}
+  if(event.key!=="Tab"||!dialog)return;
+  const items=[...dialog.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(item=>!item.hasAttribute("hidden"));
+  if(!items.length){event.preventDefault();dialog.focus();return;}
+  const first=items[0],last=items[items.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+ });
+ modal.querySelector<HTMLButtonElement>(".modal-x")?.focus();
 }
 
 function toolPage(id:ToolId,num:string,title:string,description:string,accept:string,note:string,privacy:string):string{
@@ -1054,6 +1070,14 @@ function wireNotFound():void{
    item.style.transitionDelay=open?(150+index*60)+"ms":"0ms";
   });
  };
+ panel?.addEventListener("keydown",event=>{
+  if(event.key!=="Tab"||!panel)return;
+  const focusables=[...panel.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(item=>!item.hasAttribute("hidden"));
+  if(!focusables.length){event.preventDefault();return;}
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+ });
  menu?.addEventListener("click",()=>setMenu(menu.getAttribute("aria-expanded")!=="true"));
  root.querySelector("[data-404-close]")?.addEventListener("click",()=>setMenu(false));
  overlay?.addEventListener("click",event=>{if((event.target as HTMLElement)?.matches("[data-404-close]"))setMenu(false)});

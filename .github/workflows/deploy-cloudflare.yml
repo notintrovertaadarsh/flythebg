@@ -20,11 +20,13 @@ jobs:
     environment: production
     steps:
       - name: Checkout main
+        id: checkout
         continue-on-error: true
         uses: actions/checkout@v5
         with:
           ref: main
       - name: Setup Node
+        id: setup_node
         continue-on-error: true
         uses: actions/setup-node@v5
         with:
@@ -68,7 +70,15 @@ jobs:
           grep -q 'remove-bg' sitemap.xml
           grep -q 'image-compressor' sitemap.xml
           grep -q 'video-compressor' sitemap.xml
+          grep -q 'privacy-policy' sitemap.xml
+          grep -q 'terms-and-conditions' sitemap.xml
+          grep -q 'cookie-policy' sitemap.xml
+          grep -q 'refund-policy' sitemap.xml
+          grep -q 'data-requests' sitemap.xml
           grep -q 'ROUTE_META' worker.js
+          test -s security.txt
+          test -s llms.txt
+          test -s ads.txt
       - name: Detect Cloudflare deploy credentials
         id: cf
         continue-on-error: true
@@ -114,6 +124,8 @@ jobs:
             echo ""
             echo "| Check | Result |"
             echo "|---|---|"
+            echo "| Checkout | ${{ steps.checkout.outcome }} |"
+            echo "| Node setup | ${{ steps.setup_node.outcome }} |"
             echo "| Install | ${{ steps.install.outcome }} |"
             echo "| Secret scan | ${{ steps.secrets.outcome }} |"
             echo "| Typecheck | ${{ steps.typecheck.outcome }} |"
@@ -121,7 +133,35 @@ jobs:
             echo "| Artifacts | ${{ steps.artifacts.outcome }} |"
             echo "| SEO | ${{ steps.seo.outcome }} |"
             echo "| Wrangler bundle | ${{ steps.cf_bundle.outcome }} |"
+            echo "| Cloudflare credential check | ${{ steps.cf.outcome }} |"
             echo "| Cloudflare deploy | ${{ steps.deploy.outcome }} |"
             echo "| Live verification | ${{ steps.verify.outcome }} |"
           } >> "$GITHUB_STEP_SUMMARY"
-          exit 0
+
+          if [ "${{ steps.checkout.outcome }}" != "success" ] ||
+             [ "${{ steps.setup_node.outcome }}" != "success" ] ||
+             [ "${{ steps.install.outcome }}" != "success" ] ||
+             [ "${{ steps.secrets.outcome }}" != "success" ] ||
+             [ "${{ steps.typecheck.outcome }}" != "success" ] ||
+             [ "${{ steps.build.outcome }}" != "success" ] ||
+             [ "${{ steps.artifacts.outcome }}" != "success" ] ||
+             [ "${{ steps.seo.outcome }}" != "success" ] ||
+             [ "${{ steps.cf_bundle.outcome }}" != "success" ] ||
+             [ "${{ steps.cf.outcome }}" != "success" ]; then
+            echo "::error::A required FlyThe BG validation step failed. See the workflow summary and logs."
+            exit 1
+          fi
+
+          if [ "${{ steps.cf.outputs.configured }}" = "true" ] && [ "${{ steps.deploy.outcome }}" != "success" ]; then
+            echo "::error::Cloudflare credentials are configured but deployment did not succeed."
+            exit 1
+          fi
+
+          if [ "${{ inputs.verify_url }}" != "" ] && [ "${{ steps.deploy.outcome }}" = "success" ] && [ "${{ steps.verify.outcome }}" != "success" ]; then
+            echo "::error::The requested live URL verification failed."
+            exit 1
+          fi
+
+          if [ "${{ steps.cf.outputs.configured }}" != "true" ]; then
+            echo "::warning::Validation passed, but this workflow did not deploy. Confirm the separate Cloudflare Git integration completed deployment."
+          fi

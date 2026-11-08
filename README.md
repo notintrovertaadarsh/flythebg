@@ -193,7 +193,7 @@ FlyThe BG does not offer accounts or authentication. That means there is no acco
 
 ### Contact-number reveal
 
-The Contact page shows the operator's phone number only after an explicit safety acknowledgement. A separate, unchecked option can save the reveal preference in a first-party cookie for 30 days; the cookie stores only a flag, not the phone number. The number is supplied by Cloudflare Worker secret CONTACT_PHONE and is not embedded in the public JavaScript bundle. To configure it from the repository environment, run `npx wrangler secret put CONTACT_PHONE` and enter the number at the secure prompt. The UI gate is a privacy/friction measure, not authentication or access control; anyone technically capable of calling the public endpoint may request the number.
+The Contact page shows the operator's phone number only after an explicit safety acknowledgement. A separate, unchecked option can save the reveal prThe application does not publish an operator telephone number and does not collect visitor phone numbers. The legacy `CONTACT_PHONE` Worker secret is no longer read by the current code; remove it from Cloudflare settings if it exists.
 
 
 ## Privacy, consumer clarity and accessibility implementation (8 November 2026)
@@ -224,9 +224,9 @@ The source-level data inventory, legal applicability notes and visual-asset prov
 - [India-focused legal and jurisdiction review](docs/LEGAL_COMPLIANCE_REVIEW.md)
 - [Visual asset and licence register](docs/ASSET_LICENSE_REGISTER.md)
 
-The application is a free browser-based media toolkit, not an airline, travel agency or booking service. The current code has no visitor phone-number field, account system, booking API, on-site checkout, advertising SDK or affiliate network integration. The operator phone reveal returns the operator's own configured contact number and does not collect a visitor number. The privacy request form prepares an email in the visitor's own email application; it does not submit data to a site backend.
+The application is a free browser-based media toolkit, not an airline, travel agency or booking service. The current code has no visitor phone-number field, account system, booking API, on-site checkout, advertising SDK or affiliate network integration. The application does not publish an operator phone number or collect visitor phone numbers. The privacy request page prepares a local copyable draft only; it does not send data to a backend or email recipient.
 
-Provider retention settings (Cloudflare, Hugging Face/Gradio, CloudFront, Google Analytics and the support mailbox) are not all visible in repository source. The legal review records owner actions and does not claim that those provider settings or a formal accessibility audit have been completed. The deployment workflow now fails if required validation steps fail; a successful build does not by itself prove that the production site has deployed.
+Provider retention settings (Cloudflare, Hugging Face/Gradio, CloudFront and Google Analytics) are not all visible in repository source. No verified support mailbox has been confirmed for publication. The legal review records owner actions and does not claim that those provider settings or a formal accessibility audit have been completed. The deployment workflow now fails if required validation steps fail; a successful build does not by itself prove that the production site has deployed.
 
 
 The source-level asset review also removed a CSS reference to a missing `GeistPixel-Circle.woff2` file and removed Font Awesome markup that had no corresponding stylesheet/font in the deployed assets. Social links remain text-labelled; no remote icon/font service is requested.

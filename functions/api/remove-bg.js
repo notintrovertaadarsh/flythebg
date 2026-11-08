@@ -16,15 +16,30 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 3;
 const MAX_CONCURRENT_REQUESTS = 4;
 const rateBuckets = new Map();
+const RATE_LIMIT_SALT = crypto.randomUUID();
 let activeRequests = 0;
 
-function clientKey(request) {
-  return request.headers.get("CF-Connecting-IP") || request.headers.get("x-real-ip") || "unknown";
+async function clientKey(request) {
+  // Keep raw client IPs out of the in-memory bucket map. This per-isolate salt
+  // prevents the short-lived hash from becoming a cross-deployment identifier.
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const bytes = new TextEncoder().encode(RATE_LIMIT_SALT + "|" + ip);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
 }
 
-function checkRateLimit(request) {
+async function checkRateLimit(request) {
   const now = Date.now();
-  const key = clientKey(request);
+  for (const [key, bucket] of rateBuckets) {
+    if (now >= bucket.resetAt) rateBuckets.delete(key);
+  }
+  // Bound isolate memory even if a bot rotates source addresses.
+  while (rateBuckets.size >= 4096) {
+    const oldest = rateBuckets.keys().next().value;
+    if (oldest === undefined) break;
+    rateBuckets.delete(oldest);
+  }
+  const key = await clientKey(request);
   const current = rateBuckets.get(key);
   if (!current || now >= current.resetAt) {
     rateBuckets.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
@@ -37,17 +52,19 @@ function checkRateLimit(request) {
   return { allowed: true, remaining: Math.max(0, RATE_LIMIT_MAX - current.count), resetAt: current.resetAt };
 }
 
-function corsOrigin(request) {
+function originAllowed(request) {
   const origin = request?.headers?.get("Origin") || "";
-  return ALLOWED_ORIGINS.has(origin) ? origin : "https://flythebg.com";
+  return ALLOWED_ORIGINS.has(origin);
 }
 
 function headers(request, extra = {}) {
+  const origin = request?.headers?.get("Origin") || "";
+  const cors = ALLOWED_ORIGINS.has(origin) ? { "Access-Control-Allow-Origin": origin } : {};
   return {
     "Cache-Control": "no-store",
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "no-referrer",
-    "Access-Control-Allow-Origin": corsOrigin(request),
+    ...cors,
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     "Vary": "Origin",
@@ -344,7 +361,7 @@ export async function onRequest(context) {
 
   if (activeRequests >= MAX_CONCURRENT_REQUESTS) return fail("Background-removal service is busy. Please try again shortly.", 429, context.request);
 
-  const rate = checkRateLimit(context.request);
+  const rate = await checkRateLimit(context.request);
   if (!rate.allowed) return fail("Too many background-removal requests. Please try again later.", 429, context.request);
 
   activeRequests += 1;

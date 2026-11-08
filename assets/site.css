@@ -516,13 +516,7 @@ body{
  --fly-trust-border:rgba(255,255,255,.4);
  --fly-trust-text:#c4c2c3;
  --fly-font-sans:"Inter","Segoe UI",system-ui,sans-serif;
- --fly-font-display:"BubbledotICG-FinePos","Geist Pixel Circle",monospace;
-}
-@font-face{
- font-family:"Geist Pixel Circle";
- src:url("/fonts/GeistPixel-Circle.woff2") format("woff2");
- font-weight:400;
- font-display:swap;
+ --fly-font-display:ui-monospace,SFMono-Regular,Consolas,monospace;
 }
 .fly-home{
  position:relative;

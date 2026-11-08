@@ -37,7 +37,6 @@ const ROUTE_META = {
   "/security": { title: "Security at FlyThe BG — Vulnerability Reporting", description: "Learn how FlyThe BG protects its media tools and how to report a security vulnerability or privacy-sensitive problem." },
   "/cookies": { title: "Cookies & Similar Technologies — FlyThe BG", description: "Read about essential browser storage, optional contact preferences and analytics that loads only after affirmative consent." },
   "/cookie-policy": { title: "Cookie Policy — FlyThe BG", description: "See the current inventory of FlyThe BG cookies, local storage, analytics and third-party asset requests." },
-  "/refund-policy": { title: "External Support Payment Information — FlyThe BG", description: "Learn how optional support contributions are processed by third-party providers and where to ask payment or refund questions." },
   "/data-requests": { title: "Privacy & Data Deletion Requests — FlyThe BG", description: "Submit an access, correction, erasure, consent withdrawal or privacy grievance request without creating an account." },
   "/affiliates": { title: "Affiliate & Referral Disclosure — FlyThe BG", description: "Current FlyThe BG disclosure: no affiliate-tracking integration found; optional support links and ads.txt status are explained." },
   "/changelog": { title: "FlyThe BG Changelog — Product & Privacy Updates", description: "See recent FlyThe BG changes across media tools, privacy, navigation, accessibility, performance, reliability, and SEO updates over time." },
@@ -77,7 +76,6 @@ function buildStructuredData(route, canonical, meta) {
     description: "Independent privacy-focused media tools and background-removal project.",
     logo: { "@type": "ImageObject", "url": SITE_URL + "/favicon.png", "contentUrl": SITE_URL + "/favicon.png" },
     image: SITE_URL + "/favicon.png",
-    email: "support@flythebg.com",
     sameAs: [GITHUB_URL, INSTAGRAM_URL]
   };
   const website = {

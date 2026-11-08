@@ -20,7 +20,6 @@ FlyThe BG does not require an account for its core tools. It is not an airline, 
 - [Privacy Policy](https://www.flythebg.com/privacy-policy): Processing, providers, retention and privacy boundaries.
 - [Cookie Policy](https://www.flythebg.com/cookie-policy): Current cookie, local-storage, analytics and third-party request inventory.
 - [Terms and Conditions](https://www.flythebg.com/terms-and-conditions): Actual media-tool services, file processing, third-party links, intellectual property and user responsibilities.
-- [Refund Policy](https://www.flythebg.com/refund-policy): No-charge core tools and handling of optional support payments made through external providers.
 - [Security](https://www.flythebg.com/security): Security controls, limitations and vulnerability reporting contact.
 - [Accessibility statement](https://www.flythebg.com/accessibility): Accessibility engineering target, known limitations and issue-reporting contact.
 - [Affiliate and Referral Disclosure](https://www.flythebg.com/affiliates): Current advertising, affiliate and optional external support disclosures.

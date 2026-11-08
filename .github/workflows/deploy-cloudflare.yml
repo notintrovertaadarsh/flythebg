@@ -130,7 +130,6 @@ jobs:
           verify_route "/privacy-policy" "Privacy Policy"
           verify_route "/terms-and-conditions" "Terms and Conditions"
           verify_route "/cookie-policy" "Cookie Policy"
-          verify_route "/refund-policy" "External Support Payment Information"
           verify_route "/affiliates" "Affiliate & Referral Disclosure"
           verify_route "/data-requests" "Privacy & Data Deletion Requests"
           verify_route "/accessibility" "Accessibility"

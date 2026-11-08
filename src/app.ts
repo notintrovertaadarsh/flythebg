@@ -802,6 +802,7 @@ function wireFlyLanding():void{
   const syncMotion=()=>{if(motion.matches){bgVideo.pause();bgVideo.removeAttribute("src");bgVideo.load();root.classList.add("fly-video-fallback");}else{root.classList.remove("fly-video-fallback");playBg();}};
   bgVideo.addEventListener("error",()=>root.classList.add("fly-video-fallback"));
   if(!motion.matches){playBg();bgVideo.addEventListener("canplay",playBg,{once:true});bgVideo.addEventListener("loadeddata",playBg,{once:true});document.addEventListener("visibilitychange",()=>{if(!document.hidden)playBg()});for(const event of ["pointerdown","touchstart","scroll"])window.addEventListener(event,playBg,{once:true,passive:true});}
+  if(motion.matches)root.classList.add("fly-video-fallback");
   motion.addEventListener("change",syncMotion);
  }
  const deferredVideo=root.querySelector<HTMLVideoElement>("[data-deferred-video]");

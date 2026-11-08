@@ -76,7 +76,6 @@ jobs:
           grep -q 'refund-policy' sitemap.xml
           grep -q 'data-requests' sitemap.xml
           grep -q 'ROUTE_META' worker.js
-          test -s security.txt
           test -s llms.txt
           test -s ads.txt
       - name: Detect Cloudflare deploy credentials

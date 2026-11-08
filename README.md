@@ -197,7 +197,7 @@ FlyThe BG does not offer accounts or authentication. That means there is no acco
 The Contact page shows the operator's phone number only after an explicit safety acknowledgement. A separate, unchecked option can save the reveal preference in a first-party cookie for 30 days; the cookie stores only a flag, not the phone number. The number is supplied by Cloudflare Worker secret CONTACT_PHONE and is not embedded in the public JavaScript bundle. To configure it from the repository environment, run `npx wrangler secret put CONTACT_PHONE` and enter the number at the secure prompt. The UI gate is a privacy/friction measure, not authentication or access control; anyone technically capable of calling the public endpoint may request the number.
 
 
-## Privacy, consumer clarity and accessibility implementation (6 November 2026)
+## Privacy, consumer clarity and accessibility implementation (8 November 2026)
 
 - Added a first-visit privacy choices banner with equally visible **Accept all**, **Reject optional** and **Customize** actions. Essential storage is limited to the saved choice; analytics is off until explicit opt-in and can be withdrawn from the footer. The choice is stored locally in the visitor's browser; there is no server-side consent ledger.
 - Removed the unconditional Google Analytics script from the document head. Google Analytics is injected only after the visitor opts in. Removed the external Google Fonts stylesheet; the site uses system/local font stacks.
@@ -215,3 +215,16 @@ The external Google Fonts stylesheet has been removed; no remotely hosted font i
 ### Important compliance limitation
 
 These changes are engineering controls and clearer notices, not a legal opinion, regulator approval or guarantee of compliance. In particular, the privacy choices are stored locally rather than in a server-side consent ledger; the current project does not independently verify a parent/guardian's identity or consent for child data; external processor retention and mailbox handling remain subject to those providers' configurations; and the operator should confirm the support inbox is monitored and response timelines are workable. Obtain jurisdiction-specific legal review before making a compliance claim.
+
+
+## Current privacy, legal and accessibility audit (8 November 2026)
+
+The source-level data inventory, legal applicability notes and visual-asset provenance register are maintained here:
+
+- [Privacy and data-flow map](docs/PRIVACY_DATA_MAP.md)
+- [India-focused legal and jurisdiction review](docs/LEGAL_COMPLIANCE_REVIEW.md)
+- [Visual asset and licence register](docs/ASSET_LICENSE_REGISTER.md)
+
+The application is a free browser-based media toolkit, not an airline, travel agency or booking service. The current code has no visitor phone-number field, account system, booking API, on-site checkout, advertising SDK or affiliate network integration. The operator phone reveal returns the operator's own configured contact number and does not collect a visitor number. The privacy request form prepares an email in the visitor's own email application; it does not submit data to a site backend.
+
+Provider retention settings (Cloudflare, Hugging Face/Gradio, CloudFront, Google Analytics and the support mailbox) are not all visible in repository source. The legal review records owner actions and does not claim that those provider settings or a formal accessibility audit have been completed. The deployment workflow now fails if required validation steps fail; a successful build does not by itself prove that the production site has deployed.

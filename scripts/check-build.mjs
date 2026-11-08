@@ -104,7 +104,7 @@ if (!api.includes("MAX_OUTPUT_BYTES")) throw new Error("Background API output-si
 if (!robots.includes("Disallow: /api/") || !robots.includes("Sitemap: https://www.flythebg.com/sitemap.xml")) throw new Error("Robots policy missing API exclusion or sitemap");
 if (!security.includes("Expires:") || !security.includes("Contact: mailto:") || !security.includes("Canonical: https://www.flythebg.com/.well-known/security.txt")) throw new Error("RFC 9116 security.txt fields missing");
 if (!ads.includes("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0")) throw new Error("ads.txt seller declaration missing");
-if (!html.includes("20261108-legal-3")) throw new Error("HTML asset cache key was not refreshed");
+if (!html.includes("20261108-legal-4")) throw new Error("HTML asset cache key was not refreshed");
 if (!css.includes(".skip-link:focus")) throw new Error("Keyboard skip-link styling missing");
 
 

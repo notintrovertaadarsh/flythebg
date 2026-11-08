@@ -48,7 +48,7 @@ function normalizeRoute(pathname) {
   const normalized = pathname.replace(/\/+$/, "") || "/";
   return ROUTES.has(normalized) ? normalized : null;
 }
-const SITE_URL = "https://flythebg.com";
+const SITE_URL = "https://www.flythebg.com";
 const GITHUB_URL = "https://github.com/notintrovertaadarsh/flythebg";
 const INSTAGRAM_URL = "https://www.instagram.com/flythebg/";
 const TOOL_ROUTES = new Set(["/remove-bg","/image-compressor","/video-compressor","/passport-photo"]);

@@ -71,7 +71,7 @@ for (const [oldRoute, newRoute] of [
 }
 
 if (!source.includes("function wirePrivacyConsent")) throw new Error("Privacy consent controller missing");
-if (!source.includes("flythebg_privacy_preferences_v1")) throw new Error("Consent preference storage missing");
+if (!source.includes("flythebg_privacy_preferences_v2")) throw new Error("Consent preference storage missing");
 if (!source.includes("G-S50DRFD37X")) throw new Error("Analytics property disclosure missing");
 if (!source.includes('script.src="https://www.googletagmanager.com/gtag/js?id=G-S50DRFD37X"')) throw new Error("Consent-gated analytics loader missing");
 if (html.includes("googletagmanager.com") || html.includes("google-analytics.com")) throw new Error("Analytics must not load from the static HTML shell");

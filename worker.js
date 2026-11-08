@@ -40,7 +40,7 @@ const ROUTE_META = {
   "/refunds": { title: "Refund Policy — FlyThe BG", description: "Read the FlyThe BG refund policy for free core tools and optional support payments processed by external providers." },
   "/refund-policy": { title: "External Support Payment Information — FlyThe BG", description: "Learn how optional support contributions are processed by third-party providers and where to ask payment or refund questions." },
   "/data-requests": { title: "Privacy & Data Deletion Requests — FlyThe BG", description: "Submit an access, correction, erasure, consent withdrawal or privacy grievance request without creating an account." },
-  "/affiliates": { title: "Affiliate & Referral Disclosure — FlyThe BG", description: "FlyThe BG disclosure for advertising, referral and affiliate relationships, including optional attribution and consent controls." },
+  "/affiliates": { title: "Affiliate & Referral Disclosure — FlyThe BG", description: "Current FlyThe BG disclosure: no affiliate-tracking integration found; optional support links and ads.txt status are explained." },
   "/changelog": { title: "FlyThe BG Changelog — Product & Privacy Updates", description: "See recent FlyThe BG changes across media tools, privacy, navigation, accessibility, performance, reliability, and SEO updates over time." },
 };
 const ROUTES = new Set(Object.keys(ROUTE_META));

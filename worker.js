@@ -304,6 +304,34 @@ function withSecurityHeaders(response) {
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
+const CONTACT_RATE_WINDOW_MS = 15 * 60 * 1000;
+const CONTACT_RATE_MAX = 10;
+const contactRevealBuckets = new Map();
+const CONTACT_RATE_SALT = crypto.randomUUID();
+
+async function checkContactRevealLimit(request) {
+  const now = Date.now();
+  for (const [key, bucket] of contactRevealBuckets) {
+    if (now >= bucket.resetAt) contactRevealBuckets.delete(key);
+  }
+  while (contactRevealBuckets.size >= 2048) {
+    const oldest = contactRevealBuckets.keys().next().value;
+    if (oldest === undefined) break;
+    contactRevealBuckets.delete(oldest);
+  }
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(CONTACT_RATE_SALT + "|" + ip));
+  const key = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+  const current = contactRevealBuckets.get(key);
+  if (!current || now >= current.resetAt) {
+    contactRevealBuckets.set(key, { count: 1, resetAt: now + CONTACT_RATE_WINDOW_MS });
+    return true;
+  }
+  if (current.count >= CONTACT_RATE_MAX) return false;
+  current.count += 1;
+  return true;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -381,6 +409,7 @@ export default {
       if (request.method !== "POST") return respond({ error: "Use POST to request contact details." }, 405);
       const origin = request.headers.get("Origin") || "";
       if (!new Set(["https://flythebg.com", "https://www.flythebg.com"]).has(origin)) return respond({ error: "Contact details can only be requested from the FlyThe BG website." }, 403);
+      if (!(await checkContactRevealLimit(request))) return respond({ error: "Too many contact-detail requests. Please try again later." }, 429);
       if (!(request.headers.get("Content-Type") || "").toLowerCase().includes("application/json")) return respond({ error: "A JSON acknowledgement is required." }, 415);
       let payload;
       try { payload = await request.json(); } catch { return respond({ error: "The request could not be read." }, 400); }

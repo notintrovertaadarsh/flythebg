@@ -23,21 +23,25 @@ Official references:
 
 ### Information Technology Act, 2000 and CERT-In Directions
 
-The CERT-In Directions dated 28 April 2022 require specified categories of entities (including service providers, intermediaries, data centres, body corporates and government organisations) to report listed cyber incidents within six hours, designate a point of contact, and maintain logs of ICT systems securely for a rolling 180 days within Indian jurisdiction. Whether the individual FlyThe BG operator falls within each relevant category, and which systems/logs the operator must control, requires Indian counsel's assessment. Cloudflare and other providers may have their own independent obligations; that does not automatically prove that the operator's own obligations are met.
+The CERT-In Directions dated 28 April 2022 require specified categories of entities (including service providers, intermediaries, data centres, body corporates and government organisations) to report listed Annexure-I cyber incidents within six hours, designate a point of contact, and maintain ICT-system logs securely for a rolling 180 days within Indian jurisdiction. CERT-In's May 2022 FAQ says ordinary individual citizens are not covered, while the Directions apply to service providers/intermediaries and other listed categories as applicable. Whether this publicly operated tool makes its individual operator a service provider or intermediary, and which systems/logs the operator must control, requires Indian counsel's assessment. Cloudflare and other providers may have their own independent obligations; that does not automatically prove that the operator's own obligations are met.
 
 The source currently has a short-lived in-memory rate-limit bucket; it is not a 180-day audit log. Cloudflare log retention/location and an incident-response process were not verified. The operator should confirm applicability, appoint/register a CERT-In point of contact if required, configure legally compliant log retention/location and document a six-hour escalation process for reportable incidents.
 
-Official reference: https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf
+Official references: https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf and https://www.cert-in.org.in/PDF/FAQs_on_CyberSecurityDirections_May2022.pdf
 
 ### Consumer Protection Act, 2019 and E-Commerce Rules, 2020
 
-The core tools are free, with no on-site sale, booking or checkout. The Consumer Protection (E-Commerce) Rules apply to goods/services bought or sold over digital networks and contain an exception for a natural person's personal-capacity activity that is not part of professional/commercial activity carried out regularly or systematically. The project is publicly operated and includes optional external support links; whether its activity is professional/commercial and whether any part of the Rules applies should be confirmed by Indian counsel. The website must not imply that FlyThe BG sells tickets, bookings or travel services.
+The core tools are free, with no on-site sale, booking or checkout. The Consumer Protection (E-Commerce) Rules apply to goods/services bought or sold over digital networks and contain an exception for a natural person's personal-capacity activity that is not part of professional/commercial activity carried out regularly or systematically. The project is publicly operated and includes optional external support links; whether its activity is professional/commercial and whether any part of the Rules applies should be confirmed by Indian counsel. The Rules' natural-person exception is narrow: personal-capacity activity that is not part of professional or commercial activity carried out regularly or systematically. The website must not imply that FlyThe BG sells tickets, bookings or travel services.
 
-Official Rules: https://thc.nic.in/Central%20Governmental%20Rules/Consumer%20Protection%20%28E-Commerce%29%20Rules%2C%202020.pdf
+Official Rules: https://consumeraffairs.gov.in/public/upload/files/E%20commerce%20rules_1732703966.pdf
 
 ### IT Rules / sensitive personal data
 
 The tools handle photographs that may identify people. The current source does not provide biometric identification, face recognition, identity verification or a database of biometric templates. A photograph is not automatically the same as a regulated biometric identifier in every legal context. If the processor or a future feature creates or uses biometric identifiers or other sensitive personal data, review the IT Act/SPDI framework and any applicable successor law with Indian counsel.
+
+## Copyright and trademarks
+
+The Copyright Act, 1957 is relevant to original code, photographs, illustrations, films, video, music and other creative works. The Trade Marks Act, 1999 is relevant to brand names, logos and third-party marks. The repository's AGPL-3.0 source-code licence does not prove rights to separately hosted visual assets or third-party marks; the asset register records unresolved provenance. No trademark registry search or asset-by-asset licence-document verification has been completed.
 
 ## Other jurisdictions
 

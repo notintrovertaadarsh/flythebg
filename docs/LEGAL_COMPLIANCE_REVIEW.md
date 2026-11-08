@@ -39,6 +39,28 @@ Official Rules: https://consumeraffairs.gov.in/public/upload/files/E%20commerce%
 
 The tools handle photographs that may identify people. The current source does not provide biometric identification, face recognition, identity verification or a database of biometric templates. A photograph is not automatically the same as a regulated biometric identifier in every legal context. If the processor or a future feature creates or uses biometric identifiers or other sensitive personal data, review the IT Act/SPDI framework and any applicable successor law with Indian counsel.
 
+## Accessibility: Rights of Persons with Disabilities Act and Rules
+
+The Rights of Persons with Disabilities Act, 2016 and the Rights of Persons with Disabilities Rules, 2017 are relevant to accessibility review. Rule 15 of the 2017 Rules states that every establishment must comply with accessibility standards for information and communication technology and identifies the website standard in the Guidelines for Indian Government Websites (GIGW). GIGW 3.0 is framed for government websites/apps; the precise application of Rule 15 to this privately operated individual project, and the applicable establishment/service classification, should be confirmed by Indian counsel. Do not assume the website is exempt merely because it is not a government portal.
+
+Engineering target: WCAG 2.2 AA. The current build checks selected core palette token pairs at 4.5:1 and source checks cover alt attributes, keyboard crop controls, focus styles, dialog focus handling and reduced-motion video loading. These are not a complete WCAG audit, screen-reader test, or proof of legal conformity. Manual testing at 200% zoom, mobile viewport sizes, keyboard-only operation and at least one screen reader remains outstanding.
+
+Official references:
+- RPwD Rules 2017: https://indiacode.ecourtsindia.com/rules/rights-of-persons-with-disabilities-rules-2017-862a6941/
+- GIGW 3.0 scope: https://guidelines.india.gov.in/scope-and-objective/
+- GIGW 3.0: https://guidelines.india.gov.in/
+
+## IT Rules and SPDI issue-spotting
+
+The IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021 impose due-diligence duties on intermediaries. The inspected FlyThe BG application does not provide public user-content hosting, social networking, messaging, user profiles or public sharing; it processes a user-selected image and returns a result. Intermediary status is therefore not established by the current feature set, but should be re-assessed if the service begins storing, publishing or transmitting user content as an intermediary.
+
+The IT (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011 may be relevant if a body corporate within their scope handles SPDI. A standard photograph is not automatically biometric information in every context; the current application does not perform face recognition, biometric identification or identity verification. If the service begins processing biometric identifiers or other SPDI, obtain advice on the Act/Rules and the entity's scope. The DPDP Act's phased commencement and the future transition/repeal provisions should also be considered.
+
+Official references:
+- IT Rules 2021 (MeitY consolidated version): https://www.meity.gov.in/static/uploads/2026/02/550681ab908f8afb135b0ad42816a1c9.pdf
+- SPDI Rules 2011: https://www.meity.gov.in/sites/upload_files/dit/files/RNUS_CyberLaw_15411.pdf
+- MeitY clarification on SPDI Rules: https://www.meity.gov.in/writereaddata/files/PressNote_25811.pdf
+
 ## Copyright and trademarks
 
 The Copyright Act, 1957 is relevant to original code, photographs, illustrations, films, video, music and other creative works. The Trade Marks Act, 1999 is relevant to brand names, logos and third-party marks. The repository's AGPL-3.0 source-code licence does not prove rights to separately hosted visual assets or third-party marks; the asset register records unresolved provenance. No trademark registry search or asset-by-asset licence-document verification has been completed.

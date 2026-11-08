@@ -10,7 +10,9 @@ const ROUTE_META = {
   "/about": { title: "About FlyThe BG — Privacy-First Image & Video Tools", description: "Learn how FlyThe BG combines protected AI background removal with local-first image and video tools and clear processing boundaries." },
   "/faq": { title: "FlyThe BG FAQ — Background Removal & Compression Guide", description: "Get answers about background removal, local image compression, video compression, file limits, downloads, privacy, and mobile use on FlyThe BG." },
   "/privacy": { title: "Privacy Policy — FlyThe BG — Media Tools Online", description: "Read the FlyThe BG privacy policy covering local compression, background-removal requests, providers, processing, retention, and user rights." },
+  "/privacy-policy": { title: "Privacy Policy — FlyThe BG", description: "Read what personal data FlyThe BG processes, why it is processed, which providers receive it, retention limits and how to make a privacy request." },
   "/terms": { title: "Terms of Use — FlyThe BG — Online Media Tools", description: "Read the FlyThe BG terms covering tool use, downloads, third-party services, availability, acceptable use, and user responsibilities." },
+  "/terms-and-conditions": { title: "Terms and Conditions — FlyThe BG", description: "Terms for FlyThe BG’s free media tools, file processing, external services, intellectual property, availability and disputes." },
   "/contact": { title: "Contact FlyThe BG — Support & Privacy Requests", description: "Contact FlyThe BG for product support, privacy requests, corrections, accessibility problems, or security reports related to the website." },
   "/support": { title: "Support FlyThe BG — Keep the Project Running", description: "Support the independent FlyThe BG project through GitHub or Buy Me a Coffee. Supporting the project is optional and does not unlock features." },
   "/support-the-developer": { title: "Support the Developer — Keep FlyThe BG Independent", description: "Learn how to support the independent FlyThe BG developer through optional GitHub or Buy Me a Coffee support." },
@@ -34,7 +36,9 @@ const ROUTE_META = {
   "/accessibility": { title: "Accessibility — FlyThe BG Website & Tools", description: "Read how FlyThe BG approaches keyboard access, touch controls, reduced motion, readable content, and reporting accessibility barriers." },
   "/security": { title: "Security at FlyThe BG — Vulnerability Reporting", description: "Learn how FlyThe BG protects its media tools and how to report a security vulnerability or privacy-sensitive problem." },
   "/cookies": { title: "Cookies & Similar Technologies — FlyThe BG", description: "Read about essential browser storage, optional contact preferences and analytics that loads only after affirmative consent." },
+  "/cookie-policy": { title: "Cookie Policy — FlyThe BG", description: "See the current inventory of FlyThe BG cookies, local storage, analytics and third-party asset requests." },
   "/refunds": { title: "Refund Policy — FlyThe BG", description: "Read the FlyThe BG refund policy for free core tools and optional support payments processed by external providers." },
+  "/refund-policy": { title: "External Support Payment Information — FlyThe BG", description: "Learn how optional support contributions are processed by third-party providers and where to ask payment or refund questions." },
   "/data-requests": { title: "Privacy & Data Deletion Requests — FlyThe BG", description: "Submit an access, correction, erasure, consent withdrawal or privacy grievance request without creating an account." },
   "/affiliates": { title: "Affiliate & Referral Disclosure — FlyThe BG", description: "FlyThe BG disclosure for advertising, referral and affiliate relationships, including optional attribution and consent controls." },
   "/changelog": { title: "FlyThe BG Changelog — Product & Privacy Updates", description: "See recent FlyThe BG changes across media tools, privacy, navigation, accessibility, performance, reliability, and SEO updates over time." },
@@ -291,7 +295,7 @@ const SECURITY_HEADERS = {
   "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
   "Cross-Origin-Opener-Policy": "same-origin",
-  "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; connect-src 'self' https://api.github.com https://*.hf.space https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: blob: https://d2ol7oe51mr4n9.cloudfront.net https://www.google-analytics.com; media-src 'self' https://d8j0ntlcm91z4.cloudfront.net https://d2ol7oe51mr4n9.cloudfront.net; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'"
+  "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; connect-src 'self' https://api.github.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; img-src 'self' data: blob: https://d2ol7oe51mr4n9.cloudfront.net https://d2ol7oe51mr4n9d.cloudfront.net https://www.google-analytics.com; media-src 'self' https://d8j0ntlcm91z4.cloudfront.net https://d2ol7oe51mr4n9d.cloudfront.net; font-src 'self'; worker-src 'self' blob:; manifest-src 'self'"
 };
 
 function withSecurityHeaders(response) {
@@ -303,6 +307,16 @@ function withSecurityHeaders(response) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    const canonicalLegalMap = {
+      "/privacy": "/privacy-policy",
+      "/terms": "/terms-and-conditions",
+      "/cookies": "/cookie-policy",
+      "/refunds": "/refund-policy"
+    };
+    if (canonicalLegalMap[url.pathname]) {
+      return Response.redirect(new URL(canonicalLegalMap[url.pathname], request.url).toString(), 301);
+    }
 
     const legacyHomeMap = {
       "/index.html": "/",
@@ -380,7 +394,7 @@ export default {
 
 
     if (url.pathname === "/ads.txt") {
-      return new Response("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0\\n", {
+      return new Response("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0\n", {
         status: 200,
         headers: {
           "Content-Type": "text/plain; charset=utf-8",

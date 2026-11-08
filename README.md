@@ -228,3 +228,6 @@ The source-level data inventory, legal applicability notes and visual-asset prov
 The application is a free browser-based media toolkit, not an airline, travel agency or booking service. The current code has no visitor phone-number field, account system, booking API, on-site checkout, advertising SDK or affiliate network integration. The operator phone reveal returns the operator's own configured contact number and does not collect a visitor number. The privacy request form prepares an email in the visitor's own email application; it does not submit data to a site backend.
 
 Provider retention settings (Cloudflare, Hugging Face/Gradio, CloudFront, Google Analytics and the support mailbox) are not all visible in repository source. The legal review records owner actions and does not claim that those provider settings or a formal accessibility audit have been completed. The deployment workflow now fails if required validation steps fail; a successful build does not by itself prove that the production site has deployed.
+
+
+The source-level asset review also removed a CSS reference to a missing `GeistPixel-Circle.woff2` file and removed Font Awesome markup that had no corresponding stylesheet/font in the deployed assets. Social links remain text-labelled; no remote icon/font service is requested.

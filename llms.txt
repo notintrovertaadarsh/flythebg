@@ -2,7 +2,7 @@
 
 > FlyThe BG is an independent, privacy-focused web toolkit for practical image and video work: protected AI background removal, browser-local image compression, browser-local video compression, and a passport, visa and ID photo sheet maker.
 
-FlyThe BG does not require an account for its core tools. Image and video compression are designed to run locally in the browser. Background removal uses the protected FlyThe BG API route and the private AI credential stays server-side. The passport photo maker combines crop selection, optional background removal, physical photo dimensions, background choices, paper sizing and printable sheet generation.
+FlyThe BG does not require an account for its core tools. It is not an airline, travel agency, flight-search or booking service; no travel API or on-site payment checkout was found in the current source. Image and video compression are designed to run locally in the browser. Background removal uses the protected FlyThe BG API route and the private AI credential stays server-side. The passport photo maker combines crop selection, optional background removal, physical photo dimensions, background choices, paper sizing and printable sheet generation.
 
 ## Core tools
 
@@ -17,9 +17,11 @@ FlyThe BG does not require an account for its core tools. Image and video compre
 - [Homepage](https://www.flythebg.com/): Overview of the project, tools, privacy boundaries and workflows.
 - [About FlyThe BG](https://www.flythebg.com/about): Project purpose, privacy-first design and how the tools are structured.
 - [FAQ](https://www.flythebg.com/faq): Answers about uploads, processing, privacy, limits, downloads and mobile use.
-- [Privacy Policy](https://www.flythebg.com/privacy): Processing, providers, retention and privacy boundaries.
-- [Terms of Use](https://www.flythebg.com/terms): Terms, acceptable use, third-party services and responsibilities.
-- [Refund Policy](https://www.flythebg.com/refunds): No-charge core tools and handling of optional support payments made through external providers.
+- [Privacy Policy](https://www.flythebg.com/privacy-policy): Processing, providers, retention and privacy boundaries.
+- [Cookie Policy](https://www.flythebg.com/cookie-policy): Current cookie, local-storage, analytics and third-party request inventory.
+- [Terms and Conditions](https://www.flythebg.com/terms-and-conditions): Actual media-tool services, file processing, third-party links and user responsibilities.(https://www.flythebg.com/terms-and-conditions): Terms, acceptable use, third-party services and responsibilities.
+- [Refund Policy](https://www.flythebg.com/refund-policy): No-charge core tools and handling of optional support payments made through external providers.
+- [Affiliate and Referral Disclosure](https://www.flythebg.com/affiliates): Current advertising, affiliate and optional external support disclosures.
 - [Privacy & Data Deletion Requests](https://www.flythebg.com/data-requests): Submit an access, correction, erasure, consent withdrawal or grievance request without an account.
 - [Contact](https://www.flythebg.com/contact): Product support, privacy, accessibility and security contact.
 - [Support the Developer](https://www.flythebg.com/support-the-developer): Optional support for maintaining the independent project.

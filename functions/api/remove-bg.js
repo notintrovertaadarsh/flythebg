@@ -1,4 +1,5 @@
 const MAX_BYTES = 15 * 1024 * 1024;
+const MAX_OUTPUT_BYTES = 30 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(["image/png", "image/jpeg", "image/webp"]);
 const ALLOWED_ORIGINS = new Set(["https://flythebg.com", "https://www.flythebg.com"]);
 const SPACE_URL = "https://StackPilotMAX-bg-remover-api.hf.space";
@@ -388,7 +389,13 @@ export async function onRequest(context) {
 
     const result = await gradioCall(token, input, progress);
     progress(92, "Preparing result");
-    const image = await outputResponse(result, token);
+    const upstreamImage = await outputResponse(result, token);
+    const outputType = (upstreamImage.headers.get("Content-Type") || "").split(";")[0].toLowerCase();
+    if (!ALLOWED_TYPES.has(outputType)) throw new Error("AI processor returned an unsupported image type.");
+    const outputBytes = new Uint8Array(await upstreamImage.arrayBuffer());
+    if (!outputBytes.byteLength || outputBytes.byteLength > MAX_OUTPUT_BYTES) throw new Error("AI processor returned an invalid or oversized image.");
+    if (!hasValidImageSignature(outputBytes, outputType)) throw new Error("AI processor returned data that is not a valid image.");
+    const image = new Response(outputBytes, { headers: { "Content-Type": outputType, "Content-Length": String(outputBytes.byteLength) } });
 
     if (wantsProgress) {
       const dataUrl = await responseToDataUrl(image);

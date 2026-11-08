@@ -65,4 +65,4 @@ The Copyright Act, 1957 is relevant to original code, photographs, illustrations
 4. CERT-In scope, 180-day log retention, point-of-contact designation and incident reporting need counsel/provider confirmation.
 5. Google Analytics retention and account settings need confirmation.
 6. Existing logo, hero/portal/404 media and third-party attribution rights are not evidenced by licence documents in the repository.
-7. WCAG 2.2 AA is an engineering target; no independent accessibility audit is stored.
+7. WCAG 2.2 AA is an engineering target. The build checks selected core palette token pairs at 4.5:1 and source checks verify image alt attributes, keyboard crop controls, focus styles and reduced-motion handling; this is not a full-page/state or assistive-technology audit. No independent accessibility audit is stored.

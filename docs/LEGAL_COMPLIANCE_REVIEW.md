@@ -73,11 +73,14 @@ The Copyright Act, 1957 is relevant to original code, photographs, illustrations
 
 ## Business and contact details requiring owner confirmation
 
-- The public site currently identifies Aadarsh Maurya as the individual operator in About, Contact and Privacy copy. Confirm that this is the correct legal name and is intended for public display.
-- No registered company status is claimed in current copy. No postal business address or GSTIN is published or verified; do not invent one.
-- `support@flythebg.com` is present in source, but mailbox ownership, provider, monitoring and retention were not verified.
-- `CONTACT_PHONE` is an optional Cloudflare runtime secret; the value is not in source. Confirm it is accurate and intended to be revealed publicly before setting it.
+- The public About, Contact and Privacy pages do not publish an individual legal name pending explicit confirmation of the correct operator identity and intended public display.
+- No registered company status, postal business address or GSTIN is asserted in current public copy. Confirm whether any such registration/address exists and whether it should be published; do not invent one.
+- No verified support, privacy/grievance, security-reporting or accessibility contact email/postal address has been confirmed for publication. The Contact page explains this status; the Privacy Request Draft page only prepares local text and does not deliver a request.
+- No public telephone number is displayed. The former contact-number reveal UI, cookie and Worker endpoint have been removed. The application no longer reads `CONTACT_PHONE`; remove that obsolete Cloudflare secret if it remains configured.
 - No formal Data Protection Officer or statutory grievance officer appointment is claimed. Confirm whether a designated role is legally required for the actual operator/business status and jurisdiction.
+- The optional Buy Me a Coffee link is an external support destination. FlyThe BG does not sell paid tool access or process contributions itself; the external provider controls its own payment, receipt and refund process. A FlyThe BG refund-policy page is therefore not published.
+- A `security.txt` file is not published until a verified security-reporting contact is available.
+
 
 ## Open compliance risks
 

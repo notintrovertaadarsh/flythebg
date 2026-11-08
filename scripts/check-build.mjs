@@ -53,7 +53,9 @@ const legalRoutes = [
   "/cookie-policy",
   "/refund-policy",
   "/data-requests",
-  "/affiliates"
+  "/affiliates",
+  "/security",
+  "/accessibility"
 ];
 for (const route of legalRoutes) {
   if (!worker.includes('"' + route + '"')) throw new Error("Server route metadata missing: " + route);

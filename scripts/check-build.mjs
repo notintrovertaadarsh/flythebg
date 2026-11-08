@@ -86,7 +86,7 @@ const imageTags = [...source.matchAll(/<img\b[^>]*>/gi)].map(match => match[0]);
 if (!imageTags.length) throw new Error("No image markup was found to validate");
 if (imageTags.some(tag => !/\balt\s*=/.test(tag))) throw new Error("An image element is missing an alt attribute");
 
-if (!api.includes("originAllowed") || !api.includes("RATE_LIMIT_SALT")) throw new Error("Background API origin or privacy-preserving rate limit control missing");
+if (!api.includes("originAllowed") || !api.includes("if (!originAllowed(context.request))") || !api.includes("RATE_LIMIT_SALT")) throw new Error("Background API origin or privacy-preserving rate limit control missing");
 if (!api.includes("new URL(SPACE_URL).hostname")) throw new Error("Background API must restrict processor result URLs to the configured Space");
 if (!api.includes("MAX_OUTPUT_BYTES")) throw new Error("Background API output-size validation missing");
 if (!robots.includes("Disallow: /api/") || !robots.includes("Sitemap: https://www.flythebg.com/sitemap.xml")) throw new Error("Robots policy missing API exclusion or sitemap");

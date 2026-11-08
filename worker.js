@@ -336,6 +336,11 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    if (url.hostname === "flythebg.com") {
+      url.hostname = "www.flythebg.com";
+      return Response.redirect(url.toString(), 301);
+    }
+
     const canonicalLegalMap = {
       "/privacy": "/privacy-policy",
       "/terms": "/terms-and-conditions",

@@ -519,11 +519,11 @@ function wireDataRequestForm():void{
 }
 
 function wirePrivacyConsent():void{
- const key="flythebg_privacy_preferences_v1";
- type Prefs={version:1;analytics:boolean;updatedAt:string};
+ const key="flythebg_privacy_preferences_v2";
+ type Prefs={version:2;analytics:boolean;updatedAt:string};
  const w=window as Window&{dataLayer?:unknown[];gtag?:(...args:unknown[])=>void};
  let prefs:Prefs|null=null;
- try{const raw=localStorage.getItem(key);if(raw){const parsed=JSON.parse(raw) as Partial<Prefs>;const savedAt=typeof parsed.updatedAt==="string"?Date.parse(parsed.updatedAt):NaN;if(parsed.version===1&&typeof parsed.analytics==="boolean"&&Number.isFinite(savedAt)&&savedAt<=Date.now()+300000&&Date.now()-savedAt<180*24*60*60*1000)prefs={version:1,analytics:parsed.analytics,updatedAt:parsed.updatedAt as string};else localStorage.removeItem(key);}}catch{}
+ try{localStorage.removeItem("flythebg_privacy_preferences_v1");const raw=localStorage.getItem(key);if(raw){const parsed=JSON.parse(raw) as Partial<Prefs>;const savedAt=typeof parsed.updatedAt==="string"?Date.parse(parsed.updatedAt):NaN;if(parsed.version===2&&typeof parsed.analytics==="boolean"&&Number.isFinite(savedAt)&&savedAt<=Date.now()+300000&&Date.now()-savedAt<180*24*60*60*1000)prefs={version:2,analytics:parsed.analytics,updatedAt:parsed.updatedAt as string};else localStorage.removeItem(key);}}catch{}
  let customize=false;
  const enableAnalytics=():void=>{
   if(w.gtag){w.gtag("consent","update",{analytics_storage:"granted",ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});return;}
@@ -541,14 +541,13 @@ function wirePrivacyConsent():void{
   const panel=document.createElement("section");panel.id="fly-privacy-consent";panel.className="fly-privacy-consent";panel.setAttribute("aria-label","Privacy and cookie choices");panel.setAttribute("aria-live","polite");
   panel.innerHTML=`<div class="fly-privacy-consent-copy"><p class="fly-privacy-consent-kicker">YOUR PRIVACY, YOUR CHOICE</p><h2>${prefs?"Privacy preferences":"Choose your privacy settings"}</h2><p>Essential browser storage supports the site and remembers your choice. Optional analytics stays off unless you opt in. Rejecting optional tracking does not block the tools. <a href="/cookie-policy">Cookie details</a> · <a href="/privacy-policy">Privacy Policy</a>.</p>${customize?`<fieldset class="fly-privacy-options"><legend>Optional categories</legend><label><input type="checkbox" checked disabled><span><strong>Essential</strong><small>Required for security, navigation and your saved privacy choice. Always active.</small></span></label><label><input type="checkbox" id="fly-analytics-choice" ${prefs?.analytics?"checked":""}><span><strong>Analytics</strong><small>Google Analytics measurement (G-S50DRFD37X). Disabled until you opt in. This does not enable advertising cookies.</small></span></label><p class="fly-privacy-consent-note">Marketing and advertising cookies are not enabled by this control.</p></fieldset>`:""}</div><div class="fly-privacy-consent-actions">${customize?'<button type="button" class="fly-consent-button fly-consent-primary" data-choice="reject">Reject optional</button><button type="button" class="fly-consent-button fly-consent-primary" data-choice="save">Save choices</button>':'<button type="button" class="fly-consent-button fly-consent-primary" data-choice="reject">Reject optional</button><button type="button" class="fly-consent-button fly-consent-secondary" data-choice="customize">Customize</button><button type="button" class="fly-consent-button fly-consent-primary" data-choice="accept">Accept all</button>'}</div>`;
   document.body.appendChild(panel);
-  const save=(analytics:boolean):void=>{prefs={version:1,analytics,updatedAt:new Date().toISOString()};try{localStorage.setItem(key,JSON.stringify(prefs));}catch{}customize=false;apply();render();};
+  const save=(analytics:boolean):void=>{prefs={version:2,analytics,updatedAt:new Date().toISOString()};try{localStorage.setItem(key,JSON.stringify(prefs));}catch{}customize=false;apply();render();};
   panel.querySelector<HTMLButtonElement>('[data-choice="reject"]')?.addEventListener("click",()=>save(false));
   panel.querySelector<HTMLButtonElement>('[data-choice="accept"]')?.addEventListener("click",()=>save(true));
   panel.querySelector<HTMLButtonElement>('[data-choice="customize"]')?.addEventListener("click",()=>{customize=true;render();document.querySelector<HTMLButtonElement>('[data-choice="save"]')?.focus();});
   panel.querySelector<HTMLButtonElement>('[data-choice="save"]')?.addEventListener("click",()=>save(panel.querySelector<HTMLInputElement>("#fly-analytics-choice")?.checked===true));
  };
- const footer=document.querySelector<HTMLElement>(".fly-site-footer");
- if(footer&&!document.getElementById("fly-manage-privacy")){const button=document.createElement("button");button.id="fly-manage-privacy";button.type="button";button.className="fly-manage-privacy";button.textContent="Privacy choices";button.addEventListener("click",()=>{customize=true;render();document.querySelector<HTMLButtonElement>('[data-choice="save"]')?.focus();});footer.appendChild(button);}
+ document.querySelectorAll<HTMLElement>(".fly-site-footer,.fb-footer").forEach((footer,index)=>{const id=index===0?"fly-manage-privacy":"fly-manage-privacy-home";if(footer.querySelector(".fly-manage-privacy"))return;const button=document.createElement("button");button.id=id;button.type="button";button.className="fly-manage-privacy";button.textContent="Privacy choices";button.setAttribute("aria-label","Manage privacy choices");button.addEventListener("click",()=>{customize=true;render();document.querySelector<HTMLButtonElement>('[data-choice="save"]')?.focus();});footer.appendChild(button);});
  apply();render();
 }
 

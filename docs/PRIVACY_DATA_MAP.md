@@ -73,7 +73,7 @@ The `/data-requests` page prepares an email in the visitor's own mail applicatio
 - Contact phone is read from optional Worker runtime secret `CONTACT_PHONE`; its value is not in source.
 - Background-removal request checks allowed browser origins, method, MIME type, file signature and 15 MB input limit.
 - Background-removal output is restricted to the configured Hugging Face Space host and validated for image MIME type, signature and maximum output size.
-- Rate limiting uses a salted per-isolate hash of the Cloudflare client IP, 3 requests per 10-minute bucket, expired-bucket cleanup and a bounded map. This is an isolate-level burst guard, not a global WAF rate limit.
+- Background-removal rate limiting uses a salted per-isolate hash of the Cloudflare client IP, 3 requests per 10-minute bucket, expired-bucket cleanup and a bounded map. Contact-number reveal uses a separate salted hash and a 10-per-15-minute in-memory limit. These are isolate-level burst guards, not global WAF rate limits.
 - Cache-control and security headers are set for API responses.
 - The privacy request form does not submit data to the site backend.
 

@@ -12,8 +12,6 @@ const required = [
   "public/favicon.png",
   "public/robots.txt",
   "public/sitemap.xml",
-  "public/security.txt",
-  "public/.well-known/security.txt",
   "public/llms.txt",
   "public/ads.txt",
   "public/site.webmanifest"
@@ -24,7 +22,7 @@ for (const file of required) {
   if ((await stat(file)).size === 0) throw new Error("Empty deployment artifact: " + file);
 }
 
-const [worker, app, html, sitemap, source, api, css, robots, security, ads, llms] = await Promise.all([
+const [worker, app, html, sitemap, source, api, css, robots, ads, llms] = await Promise.all([
   readFile("worker.js", "utf8"),
   readFile("public/assets/app.js", "utf8"),
   readFile("public/index.html", "utf8"),
@@ -33,7 +31,6 @@ const [worker, app, html, sitemap, source, api, css, robots, security, ads, llms
   readFile("functions/api/remove-bg.js", "utf8"),
   readFile("public/assets/site.css", "utf8"),
   readFile("public/robots.txt", "utf8"),
-  readFile("public/.well-known/security.txt", "utf8"),
   readFile("public/ads.txt", "utf8"),
   readFile("public/llms.txt", "utf8")
 ]);
@@ -102,7 +99,6 @@ if (!api.includes("originAllowed") || !api.includes("if (!originAllowed(context.
 if (!api.includes("new URL(SPACE_URL).hostname")) throw new Error("Background API must restrict processor result URLs to the configured Space");
 if (!api.includes("MAX_OUTPUT_BYTES")) throw new Error("Background API output-size validation missing");
 if (!robots.includes("Disallow: /api/") || !robots.includes("Sitemap: https://www.flythebg.com/sitemap.xml")) throw new Error("Robots policy missing API exclusion or sitemap");
-if (!security.includes("Expires:") || !security.includes("Contact: mailto:") || !security.includes("Canonical: https://www.flythebg.com/.well-known/security.txt")) throw new Error("RFC 9116 security.txt fields missing");
 if (!ads.includes("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0")) throw new Error("ads.txt seller declaration missing");
 if (!html.includes("20261108-legal-4")) throw new Error("HTML asset cache key was not refreshed");
 if (!css.includes(".skip-link:focus")) throw new Error("Keyboard skip-link styling missing");

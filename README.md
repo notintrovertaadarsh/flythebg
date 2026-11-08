@@ -166,9 +166,12 @@ Guides:
 - /blog/webm-video-compression-guide
 
 Trust and project:
-- /privacy
-- /terms
-- /cookies
+- /privacy-policy
+- /terms-and-conditions
+- /cookie-policy
+- /refund-policy
+- /affiliates
+- /data-requests
 - /security
 - /accessibility
 - /code-of-conduct
@@ -187,9 +190,9 @@ support@flythebg.com
 This is the official FlyThe BG support address for product questions, privacy requests, security reports and project communication.
 
 
-### Account-free DPDP note (reviewed 2026-10-24)
+### Account-free DPDP note (reviewed 2026-11-08)
 
-FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, support correspondence, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary and route requests through the support inbox. Verify that the inbox is live/monitored, the operator identity is correctly disclosed, external processor retention is understood, and the child-data/guardian-consent issue is resolved before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.
+FlyThe BG does not offer accounts or authentication. That means there is no account profile or account deletion/export dashboard; it does **not** mean that personal data is never processed. Images submitted to Remove Background, support correspondence, and technical/security request metadata can still involve personal data. The public Privacy Policy and Contact page explain the browser-local versus external-processing boundary; `/data-requests` prepares a mailto draft in the visitor's own email application. Verify that the inbox is live/monitored, the operator identity is correctly disclosed, external processor retention is understood, and the child-data/guardian-consent issue is resolved before claiming full DPDP compliance. The website is not legally certified by this engineering checklist.
 
 
 ### Contact-number reveal
@@ -204,7 +207,7 @@ The Contact page shows the operator's phone number only after an explicit safety
 - Added a Refund Policy and a Privacy & Data Deletion Requests page. The latter prepares an email in the visitor's own mail application and does not submit or store form values on the website.
 - Added policy links to the footer, sitemap and llms.txt. The current core tools do not charge a usage fee; optional support is processed by the external support provider. There is no on-site checkout or advertising SDK in the current source.
 - Existing file-processing confirmations remain required before a selected file is processed. The UI warns against submitting identifiable children's images unless any legally required verifiable guardian consent has been obtained; the checkbox is not an age-verification mechanism.
-- Added explicit image-alt fallbacks for dynamically inserted preview images and visible keyboard focus styling. This is an implementation baseline, not a completed independent WCAG audit.
+- All authored image elements include an explicit alt attribute; build smoke checks fail if an image tag is missing one. Visible focus styling, a skip link, dialog focus management and reduced-motion video loading are implemented. This is an engineering baseline, not a completed independent WCAG audit.
 - No marketing email list or newsletter sender is currently implemented, so an unsubscribe link is not applicable to current product behavior. If marketing email is introduced, opt-in, sender identification and a working unsubscribe mechanism must be implemented before sending.
 - Third-party integration inventory: Cloudflare Workers/Assets for hosting and API boundary; Hugging Face/Gradio only for a user-requested background-removal job; CloudFront for hosted visual assets; public GitHub API for repository star count; Google Analytics only after opt-in; Buy Me a Coffee only after a user follows the external support link; Instagram/GitHub are outbound links. No iframe embed or advertising SDK was found in the current application source.
 

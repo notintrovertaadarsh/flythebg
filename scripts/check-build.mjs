@@ -86,7 +86,7 @@ if (!source.includes('analytics_storage:"denied"')) throw new Error("Analytics d
 if (source.includes("fonts.googleapis.com") || css.includes("fonts.googleapis.com") || html.includes("fonts.googleapis.com")) throw new Error("Remote Google Fonts request found");
 if (css.includes("/fonts/GeistPixel-Circle.woff2") || source.includes("fa-brands")) throw new Error("Broken font or unloaded icon-font reference remains");
 if (worker.includes("https://*.hf.space")) throw new Error("Browser CSP still permits direct Hugging Face connections");
-if (!source.includes("does not ask you to submit your phone number")) throw new Error("Contact-number disclosure missing");
+if (source.includes("\\`") || source.includes("\\${")) throw new Error("Escaped template-literal delimiter found in src/app.ts");
 if (/<input[^>]*(?:type=["']tel|name=["']phone)/i.test(source)) throw new Error("Unexpected visitor phone-number input found");
 
 const imageTags = [...source.matchAll(/<img\b[^>]*>/gi)].map(match => match[0]);

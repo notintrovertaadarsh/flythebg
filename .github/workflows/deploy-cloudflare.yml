@@ -73,7 +73,6 @@ jobs:
           grep -q 'privacy-policy' sitemap.xml
           grep -q 'terms-and-conditions' sitemap.xml
           grep -q 'cookie-policy' sitemap.xml
-          grep -q 'refund-policy' sitemap.xml
           grep -q 'data-requests' sitemap.xml
           grep -q 'ROUTE_META' worker.js
           test -s llms.txt

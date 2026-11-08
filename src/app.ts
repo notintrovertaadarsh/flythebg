@@ -1143,54 +1143,6 @@ function revealElements():void{
  items.forEach(el=>observer.observe(el));
 }
 
-function wireContactReveal():void{
- const root=document.querySelector<HTMLElement>("[data-contact-reveal]");
- if(!root||root.dataset.contactRevealWired==="1")return;
- root.dataset.contactRevealWired="1";
- const cookieName="flythebg_contact_reveal";
- const gate=root.querySelector<HTMLElement>("[data-contact-reveal-gate]");
- const result=root.querySelector<HTMLElement>("[data-contact-reveal-result]");
- const acknowledge=root.querySelector<HTMLInputElement>("[data-contact-safety-ack]");
- const remember=root.querySelector<HTMLInputElement>("[data-contact-remember]");
- const revealButton=root.querySelector<HTMLButtonElement>("[data-contact-reveal-button]");
- const hideButton=root.querySelector<HTMLButtonElement>("[data-contact-hide-button]");
- const phoneLink=root.querySelector<HTMLAnchorElement>("[data-contact-phone]");
- const errorMessage=root.querySelector<HTMLElement>("[data-contact-reveal-error]");
- if(!gate||!result||!acknowledge||!remember||!revealButton||!hideButton||!phoneLink||!errorMessage)return;
- const hasRememberedChoice=():boolean=>document.cookie.split(";").some(part=>part.trim()===cookieName+"=1");
- const saveRememberedChoice=(enabled:boolean):void=>{
-  const maxAge=enabled?60*60*24*30:0;
-  document.cookie=cookieName+"="+(enabled?"1":"")+"; Max-Age="+maxAge+"; Path=/; SameSite=Lax"+(location.protocol==="https:"?"; Secure":"");
- };
- const updateButton=():void=>{revealButton.disabled=!acknowledge.checked;};
- const requestPhone=async(acknowledged:boolean):Promise<void>=>{
-  errorMessage.textContent="";
-  try{
-   const response=await fetch("/api/contact-details",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"same-origin",cache:"no-store",body:JSON.stringify({acknowledged})});
-   const payload=await response.json().catch(()=>({}));
-   if(!response.ok||typeof payload.phone!=="string"||!payload.phone.trim())throw new Error(typeof payload.error==="string"?payload.error:"Phone contact is temporarily unavailable. Please use the privacy/support email.");
-   phoneLink.textContent=payload.phone;
-   phoneLink.href="tel:"+payload.phone.replace(/[^\d+]/g,"");
-   gate.hidden=true;result.hidden=false;
-  }catch(error){
-   saveRememberedChoice(false);
-   result.hidden=true;gate.hidden=false;
-   errorMessage.textContent=error instanceof Error?error.message:"Phone contact is temporarily unavailable. Please use the privacy/support email.";
-  }
- };
- revealButton.addEventListener("click",()=>{
-  if(!acknowledge.checked)return;
-  saveRememberedChoice(remember.checked);
-  void requestPhone(true);
- });
- hideButton.addEventListener("click",()=>{
-  saveRememberedChoice(false);
-  result.hidden=true;gate.hidden=false;acknowledge.checked=false;remember.checked=false;errorMessage.textContent="";updateButton();
- });
- if(hasRememberedChoice())void requestPhone(false);
- updateButton();
-}
-
 function render():void{
  const app=document.querySelector<HTMLElement>("#app");
  if(!app)return;
@@ -1254,7 +1206,7 @@ function render():void{
  }
  app.innerHTML=page;
  // Image alternatives are authored at their source; build checks fail if an img has no alt attribute.
- wireContactReveal();
+ 
  wireDataRequestForm();
  wirePrivacyConsent();
  wireTools();

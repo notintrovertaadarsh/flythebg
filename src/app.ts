@@ -265,7 +265,7 @@ function shell(content:string,title:string):string{
  const active=(route:string)=>path===route?' class="is-active" aria-current="page"':'';
  return `<a class="skip-link" href="#page-content">Skip to main content</a><div class="fly-site">
  <section class="fly-site-hero">
-  <div class="fly-bg" aria-hidden="true"><video class="fly-bg-video" autoplay muted loop playsinline preload="auto" poster="/assets/flythebg-hero-poster.png" src="/assets/flythebg-hero.mp4" aria-hidden="true"></video><div class="fly-bg-shade"></div></div>
+  <div class="fly-bg" aria-hidden="true"><video class="fly-bg-video" muted loop playsinline preload="none" poster="/assets/flythebg-hero-poster.png" data-src="/assets/flythebg-hero.mp4" aria-hidden="true"></video><div class="fly-bg-shade"></div></div>
   <div class="fly-page">
    <header class="ft-pill-nav fly-global-nav"><a class="ft-pill-logo" href="/" aria-label="FlyThe BG home"><img src="/assets/flythebg-logo.png" alt="" width="38" height="38"><span>FlyThe BG</span></a><nav class="ft-pill-desktop" aria-label="Main navigation"><ul><li><a class="ft-pill" href="/">Home</a></li><li><a class="ft-pill" href="/features">Tools</a></li><li><a class="ft-pill" href="/passport-photo">Passport</a></li><li><a class="ft-pill" href="/blogs">Blogs</a></li><li><a class="ft-pill" href="/about">About</a></li><li><a class="ft-pill" href="/faq">FAQ</a></li><li><a class="ft-pill" href="/contact">Contact</a></li><li><a class="ft-pill" href="/support-the-developer">Support the Developer</a></li></ul></nav><button class="ft-pill-toggle" type="button" aria-expanded="false" aria-controls="ft-pill-mobile" aria-label="Open navigation"><span></span><span></span><span></span></button><nav class="ft-pill-mobile" id="ft-pill-mobile" aria-label="Mobile navigation" inert><ul><li><a href="/">Home</a></li><li><a href="/features">Tools</a></li><li><a href="/remove-bg">Remove BG</a></li><li><a href="/image-compressor">Images</a></li><li><a href="/video-compressor">Videos</a></li><li><a href="/passport-photo">Passport Photos</a></li><li><a href="/about">About</a></li><li><a href="/faq">FAQ</a></li><li><a href="/blogs">Blogs</a></li><li><a href="/contact">Contact</a></li><li><a href="/support-the-developer">Support the Developer</a></li></ul><div class="ft-pill-mobile-foot"><a href="/privacy-policy">Privacy</a><a href="/cookie-policy">Cookies</a><a href="/terms-and-conditions">Terms</a></div></nav></header>
    <div class="fly-mobile-overlay" data-menu-close></div><nav class="fly-mobile-menu" id="fly-mobile-menu" hidden aria-label="Mobile navigation"><a href="/">Home</a><a href="/features">Tools</a><a href="/remove-bg">Remove BG</a><a href="/image-compressor">Images</a><a href="/video-compressor">Videos</a><a href="/passport-photo">Passport Photos</a><a href="/about">About</a><a href="/faq">FAQ</a><a href="/contact">Contact</a><a href="/support-the-developer">Support the Developer</a><a href="/blogs">Blogs</a><a href="/code-of-conduct">Code</a><a href="/accessibility">Accessibility</a><a href="/security">Security</a><a href="/privacy-policy">Privacy Policy</a><a href="/cookie-policy">Cookie Policy</a><a href="/terms-and-conditions">Terms</a><a href="/refund-policy">External support payments</a><a href="/affiliates">Affiliate disclosure</a><a href="/data-requests">Data requests</a></nav>
@@ -300,7 +300,7 @@ function toolPage(id:ToolId,num:string,title:string,description:string,accept:st
 function home():string{
  setSeo("FlyThe BG — Privacy-first media tools","Remove backgrounds with protected AI, compress images locally and create smaller videos in one focused media toolkit.");
  return `<a class="skip-link" href="#fb-home-main">Skip to main content</a><main class="fb-home" id="fb-home-main" aria-label="FlyThe BG home">
-  <video class="fb-home-video" aria-hidden="true" muted loop playsinline preload="metadata" poster="/assets/flythebg-hero-poster.png" src="/assets/flythebg-hero.mp4"></video>
+  <video class="fb-home-video" aria-hidden="true" muted loop playsinline preload="none" poster="/assets/flythebg-hero-poster.png" data-src="/assets/flythebg-hero.mp4"></video>
   <div class="fb-home-veil"></div>
   <div class="fb-home-frame">
    <header class="ft-pill-nav fly-global-nav"><a class="ft-pill-logo" href="/" aria-label="FlyThe BG home"><img src="/assets/flythebg-logo.png" alt="" width="38" height="38"><span>FlyThe BG</span></a><nav class="ft-pill-desktop" aria-label="Main navigation"><ul><li><a class="ft-pill is-active" href="/">Home</a></li><li><a class="ft-pill" href="/features">Tools</a></li><li><a class="ft-pill" href="/passport-photo">Passport</a></li><li><a class="ft-pill" href="/blogs">Blogs</a></li><li><a class="ft-pill" href="/about">About</a></li><li><a class="ft-pill" href="/faq">FAQ</a></li><li><a class="ft-pill" href="/contact">Contact</a></li></ul></nav><button class="ft-pill-toggle" type="button" aria-expanded="false" aria-controls="ft-pill-mobile" aria-label="Open navigation"><span></span><span></span><span></span></button><nav class="ft-pill-mobile" id="ft-pill-mobile" aria-label="Mobile navigation" inert><ul><li><a href="/">Home</a></li><li><a href="/features">Tools</a></li><li><a href="/remove-bg">Remove BG</a></li><li><a href="/image-compressor">Images</a></li><li><a href="/video-compressor">Videos</a></li><li><a href="/passport-photo">Passport Photos</a></li><li><a href="/about">About</a></li><li><a href="/faq">FAQ</a></li><li><a href="/blogs">Blogs</a></li><li><a href="/contact">Contact</a></li><li><a href="/support-the-developer">Support the Developer</a></li></ul><div class="ft-pill-mobile-foot"><a href="/privacy-policy">Privacy</a><a href="/terms-and-conditions">Terms</a></div></nav></header>
@@ -366,7 +366,7 @@ function notFound():string{
    </button>
   </nav>
   <div class="fb-404-video-wrap" aria-hidden="true">
-   <div class="fb-404-video-inner"><video autoplay loop muted playsinline preload="auto" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260713_234424_b1332b69-2e69-4302-8dbc-40f86846afbd.mp4"></video></div>
+   <div class="fb-404-video-inner"><video muted loop playsinline preload="none" data-404-video data-src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260713_234424_b1332b69-2e69-4302-8dbc-40f86846afbd.mp4"></video></div>
   </div>
   <section class="fb-404-bottom">
    <h1 id="fb-404-title">Oops, something went wrong!</h1>
@@ -763,7 +763,7 @@ function wireEditorial():void{
 
 function wireHomeVisuals():void{
  const heroVideo=document.querySelector<HTMLVideoElement>(".fb-home-video");
- if(heroVideo){const motion=window.matchMedia("(prefers-reduced-motion: reduce)");const syncMotion=()=>{if(motion.matches)heroVideo.pause();else heroVideo.play().catch(()=>{});};syncMotion();motion.addEventListener("change",syncMotion);}
+ if(heroVideo){const motion=window.matchMedia("(prefers-reduced-motion: reduce)");const syncMotion=()=>{if(motion.matches){heroVideo.pause();heroVideo.removeAttribute("src");heroVideo.load();}else{if(!heroVideo.getAttribute("src")&&heroVideo.dataset.src){heroVideo.src=heroVideo.dataset.src;heroVideo.load();}heroVideo.play().catch(()=>{});}};syncMotion();motion.addEventListener("change",syncMotion);}
  const doc=document.documentElement;
  if(doc.dataset.flyHomeVisuals==="1")return;
  doc.dataset.flyHomeVisuals="1";
@@ -781,15 +781,12 @@ function wireFlyLanding():void{
  const bgVideo=root.querySelector<HTMLVideoElement>(".fly-bg-video");
  if(bgVideo){
   bgVideo.muted=true;bgVideo.setAttribute("webkit-playsinline","");
-  const playBg=()=>{if(!bgVideo.paused||document.hidden)return;bgVideo.play().catch(()=>root.classList.add("fly-video-fallback"));};
+  const motion=matchMedia("(prefers-reduced-motion: reduce)");
+  const playBg=()=>{if(motion.matches||document.hidden)return;if(!bgVideo.getAttribute("src")&&bgVideo.dataset.src){bgVideo.src=bgVideo.dataset.src;bgVideo.load();}if(!bgVideo.paused)return;bgVideo.play().catch(()=>root.classList.add("fly-video-fallback"));};
+  const syncMotion=()=>{if(motion.matches){bgVideo.pause();bgVideo.removeAttribute("src");bgVideo.load();root.classList.add("fly-video-fallback");}else{root.classList.remove("fly-video-fallback");playBg();}};
   bgVideo.addEventListener("error",()=>root.classList.add("fly-video-fallback"));
-  if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
-   bgVideo.play().catch(()=>{});
-   bgVideo.addEventListener("canplay",playBg,{once:true});
-   bgVideo.addEventListener("loadeddata",playBg,{once:true});
-   document.addEventListener("visibilitychange",()=>{if(!document.hidden)playBg()});
-   for(const event of ["pointerdown","touchstart","scroll"])window.addEventListener(event,playBg,{once:true,passive:true});
-  }
+  if(!motion.matches){playBg();bgVideo.addEventListener("canplay",playBg,{once:true});bgVideo.addEventListener("loadeddata",playBg,{once:true});document.addEventListener("visibilitychange",()=>{if(!document.hidden)playBg()});for(const event of ["pointerdown","touchstart","scroll"])window.addEventListener(event,playBg,{once:true,passive:true});}
+  motion.addEventListener("change",syncMotion);
  }
  const deferredVideo=root.querySelector<HTMLVideoElement>("[data-deferred-video]");
  if(deferredVideo){deferredVideo.muted=true;deferredVideo.setAttribute("webkit-playsinline","");deferredVideo.addEventListener("error",()=>root.classList.add("fly-video-fallback"));}
@@ -1028,6 +1025,13 @@ function wireNotFound():void{
  const items=root.querySelectorAll<HTMLElement>(".fb-404-menu-items a");
  const bgText=root.querySelector<HTMLElement>("[data-404-number]");
  const oval=root.querySelector<HTMLElement>("[data-404-oval]");
+ const backgroundVideo=root.querySelector<HTMLVideoElement>("[data-404-video]");
+ if(backgroundVideo){
+  const motion=window.matchMedia("(prefers-reduced-motion: reduce)");
+  const syncVideo=()=>{if(motion.matches){backgroundVideo.pause();backgroundVideo.removeAttribute("src");backgroundVideo.load();}else{if(!backgroundVideo.getAttribute("src")&&backgroundVideo.dataset.src){backgroundVideo.src=backgroundVideo.dataset.src;backgroundVideo.load();}backgroundVideo.play().catch(()=>root.classList.add("fb-404-video-fallback"));}};
+  syncVideo();motion.addEventListener("change",syncVideo);
+  document.addEventListener("visibilitychange",()=>{if(document.hidden)backgroundVideo.pause();else if(!motion.matches)backgroundVideo.play().catch(()=>{});});
+ }
  const setScale=()=>{
   if(!bgText||!oval)return;
   const h=bgText.offsetHeight;

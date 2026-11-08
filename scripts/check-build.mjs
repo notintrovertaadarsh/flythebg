@@ -74,7 +74,7 @@ if (!source.includes("function wirePrivacyConsent")) throw new Error("Privacy co
 if (!source.includes("flythebg_privacy_preferences_v2")) throw new Error("Consent preference storage missing");
 if (!source.includes('localStorage.removeItem("flythebg_privacy_preferences_v1")')) throw new Error("Old consent version must be cleared for fresh consent");
 if (!source.includes('document.querySelectorAll<HTMLElement>(".fly-site-footer,.fb-home-footer")')) throw new Error("Privacy choices control must exist on home and tool footers");
-if (!source.includes("Do not submit an identifiable child’s image")) throw new Error("Child-image prohibition notice missing");
+if (!source.includes("Do not submit a photo or video that depicts an identifiable child")) throw new Error("Child-image prohibition notice missing");
 if (!source.includes("aria-keyshortcuts")) throw new Error("Passport crop keyboard instructions missing");
 if (!source.includes('box.addEventListener("keydown",event=>')) throw new Error("Passport crop keyboard controls missing");
 if (!source.includes("visually-hidden-file-input") || !css.includes(".passport-upload-zone:focus-within")) throw new Error("Passport upload input is not keyboard visible");

@@ -78,6 +78,7 @@ if (html.includes("googletagmanager.com") || html.includes("google-analytics.com
 if (!source.includes('data-choice="reject"') || !source.includes('data-choice="accept"')) throw new Error("Accept/reject controls missing");
 if (!source.includes('analytics_storage:"denied"')) throw new Error("Analytics denied state missing");
 if (source.includes("fonts.googleapis.com") || css.includes("fonts.googleapis.com") || html.includes("fonts.googleapis.com")) throw new Error("Remote Google Fonts request found");
+if (css.includes("/fonts/GeistPixel-Circle.woff2") || source.includes("fa-brands")) throw new Error("Broken font or unloaded icon-font reference remains");
 if (worker.includes("https://*.hf.space")) throw new Error("Browser CSP still permits direct Hugging Face connections");
 if (!source.includes("does not ask you to submit your phone number")) throw new Error("Contact-number disclosure missing");
 if (/<input[^>]*(?:type=["']tel|name=["']phone)/i.test(source)) throw new Error("Unexpected visitor phone-number input found");

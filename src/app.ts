@@ -523,7 +523,7 @@ function wirePrivacyConsent():void{
  type Prefs={version:2;analytics:boolean;updatedAt:string};
  const w=window as Window&{dataLayer?:unknown[];gtag?:(...args:unknown[])=>void};
  let prefs:Prefs|null=null;
- try{localStorage.removeItem("flythebg_privacy_preferences_v2");const raw=localStorage.getItem(key);if(raw){const parsed=JSON.parse(raw) as Partial<Prefs>;const savedAt=typeof parsed.updatedAt==="string"?Date.parse(parsed.updatedAt):NaN;if(parsed.version===2&&typeof parsed.analytics==="boolean"&&Number.isFinite(savedAt)&&savedAt<=Date.now()+300000&&Date.now()-savedAt<180*24*60*60*1000)prefs={version:2,analytics:parsed.analytics,updatedAt:parsed.updatedAt as string};else localStorage.removeItem(key);}}catch{}
+ try{localStorage.removeItem("flythebg_privacy_preferences_v1");const raw=localStorage.getItem(key);if(raw){const parsed=JSON.parse(raw) as Partial<Prefs>;const savedAt=typeof parsed.updatedAt==="string"?Date.parse(parsed.updatedAt):NaN;if(parsed.version===2&&typeof parsed.analytics==="boolean"&&Number.isFinite(savedAt)&&savedAt<=Date.now()+300000&&Date.now()-savedAt<180*24*60*60*1000)prefs={version:2,analytics:parsed.analytics,updatedAt:parsed.updatedAt as string};else localStorage.removeItem(key);}}catch{}
  let customize=false;
  const enableAnalytics=():void=>{
   if(w.gtag){w.gtag("consent","update",{analytics_storage:"granted",ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});return;}

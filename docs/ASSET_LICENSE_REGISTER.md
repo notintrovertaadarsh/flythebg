@@ -6,9 +6,9 @@
 | Asset | Current source / delivery | Licence status |
 |---|---|---|
 | FlyThe BG logo | `assets/flythebg-logo.png`, copied to favicon | Local project asset. Copyright owner and source file history should be confirmed by the operator. |
-| Homepage hero video | CloudFront object ending `4b73c700-3112-4c07-bd48-0af2893dff7c.mp4`, proxied as `/assets/flythebg-hero.mp4` | Origin/creator and licence not verified. |
-| Homepage hero poster | CloudFront object ending `0bf7409c-9fa2-4bef-a49d-34903dcc91ad.png`, proxied as `/assets/flythebg-hero-poster.png` | Origin/creator and licence not verified. |
-| Planet transition videos and Mercury image | CloudFront distribution `d2ol7oe51mr4n9d.cloudfront.net`; object IDs are declared in the legacy `wireSpaceExperience()` function in `src/app.ts` | The current rendered routes do not contain an `.experience` root, so this legacy function returns without loading these assets. They are dormant source references, not verified active network requests. Origin/creator and licence remain unverified if the experience is re-enabled. |
+| Homepage hero video (proxied through same-origin Worker route) | CloudFront object ending `4b73c700-3112-4c07-bd48-0af2893dff7c.mp4`, proxied as `/assets/flythebg-hero.mp4` | Origin/creator and licence not verified. |
+| Homepage hero poster (proxied through same-origin Worker route) | CloudFront object ending `0bf7409c-9fa2-4bef-a49d-34903dcc91ad.png`, proxied as `/assets/flythebg-hero-poster.png` | Origin/creator and licence not verified. |
+| Legacy planet transition videos and Mercury image | CloudFront distribution `d2ol7oe51mr4n9d.cloudfront.net`; object IDs are declared in the legacy `wireSpaceExperience()` function in `src/app.ts` | The current rendered routes do not contain an `.experience` root, so this legacy function returns without loading these assets. They are dormant source references, not verified active network requests. Origin/creator and licence remain unverified if the experience is re-enabled. |
 | Planet image | CloudFront object ending `d6fb8b6b-c15e-4aaa-9cf7-45bbb5e33372.jpg` | Origin/creator and licence not verified. |
 | 404 background video | CloudFront distribution `d8j0ntlcm91z4.cloudfront.net`; object name begins `hf_20260713_` | Origin/creator and licence not verified. |
 | MotionSites attribution | Footer links to https://motionsites.ai/ with “UI by” attribution | Confirm whether this attribution reflects a licence, template, commissioned design or other agreement and retain the relevant permission/terms. |

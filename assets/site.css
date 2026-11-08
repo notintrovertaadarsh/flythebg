@@ -1686,3 +1686,31 @@ body.fb-404-mode #app{width:100%;height:100%;min-height:100vh}
 .visually-hidden-file-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
 .passport-upload-zone:focus-within{outline:3px solid #ffe27a;outline-offset:4px}
 .passport-crop-box:focus-visible{outline:3px solid #ffe27a;outline-offset:3px;box-shadow:0 0 0 2px #070907}
+
+
+/* Site-wide footer system: clear destinations, readable groups and a dedicated privacy control. */
+.fly-footer{display:block!important;min-height:0!important;padding:54px max(24px,calc((100vw - 1240px)/2)) 30px!important;background:#070708!important;color:#f7faf5!important;border-top:1px solid rgba(255,255,255,.14)!important}
+.fly-footer-top{display:grid;grid-template-columns:minmax(190px,.85fr) minmax(0,2.2fr) minmax(210px,.9fr);gap:36px;align-items:start;max-width:1240px;margin:0 auto}
+.fly-footer-brand-block .fly-footer-brand,.fly-footer-brand-block .fb-footer-brand{display:inline-block;color:#fff;font-size:25px;font-weight:850;letter-spacing:-.045em}
+.fly-footer-brand-block p,.fly-footer-privacy p{margin:9px 0 15px;color:rgba(255,255,255,.62);font-size:13px;line-height:1.6}
+.fly-footer-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.fly-footer-group{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0}
+.fly-footer-group h2,.fly-footer-privacy h2{margin:0 0 5px;color:#fff;font-size:12px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+.fly-footer-group a,.fly-footer .fly-social-links a{color:rgba(255,255,255,.72);font-size:13px;line-height:1.45;text-decoration:none;transition:color .18s ease}
+.fly-footer-group a:hover,.fly-footer .fly-social-links a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.fly-footer .fly-social-links{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:18px}
+.fly-footer-privacy{padding:17px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(255,255,255,.035)}
+.fly-footer-privacy p{margin:7px 0 13px;font-size:12px}
+.fly-manage-privacy{display:flex!important;align-items:center;justify-content:space-between;gap:16px;width:100%;margin:0!important;padding:12px 14px!important;border:1px solid rgba(169,232,255,.55)!important;border-radius:10px!important;background:rgba(169,232,255,.09)!important;color:#eaf9ff!important;font:750 13px/1.3 Inter,ui-sans-serif,system-ui,sans-serif!important;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.fly-manage-privacy:hover{background:rgba(169,232,255,.17)!important;border-color:#a9e8ff!important;transform:translateY(-1px)}
+.fly-manage-privacy:focus-visible{outline:3px solid #a9e8ff;outline-offset:3px}
+.fly-footer-bottom{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;max-width:1240px;margin:34px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.56);font-size:12px}
+.fly-footer-bottom small{flex-basis:100%;max-width:none!important;padding:0!important;border:0!important;color:rgba(255,255,255,.48)!important;font-size:11px;line-height:1.6}
+.fly-footer-bottom a{color:rgba(255,255,255,.82);text-decoration:underline;text-underline-offset:3px}
+.fly-privacy-consent{align-items:stretch!important}
+.fly-privacy-consent-copy{max-width:650px}
+.fly-privacy-consent-actions{align-items:center}
+.fly-consent-button{min-height:42px}
+@media(max-width:980px){.fly-footer-top{grid-template-columns:1fr 2fr}.fly-footer-privacy{grid-column:1/-1;max-width:none}.fly-footer-columns{gap:18px}}
+@media(max-width:680px){.fly-footer{padding:38px 20px 24px!important}.fly-footer-top{grid-template-columns:1fr;gap:24px}.fly-footer-columns{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px}.fly-footer-privacy{grid-column:1}.fly-footer-bottom{margin-top:25px;gap:8px 14px}.fly-privacy-consent{left:10px!important;right:10px!important;bottom:10px!important;max-height:82dvh!important;overflow:auto!important;padding:18px!important}.fly-privacy-consent-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:9px!important}.fly-privacy-consent-actions .fly-consent-button{min-width:0;width:100%;min-height:44px}.fly-privacy-consent-actions [data-choice="accept"]{grid-column:1/-1}}
+@media(max-width:380px){.fly-footer-columns{grid-template-columns:1fr}.fly-privacy-consent-actions{grid-template-columns:1fr}.fly-privacy-consent-actions [data-choice="accept"]{grid-column:auto}}

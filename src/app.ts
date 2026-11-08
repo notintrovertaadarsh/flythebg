@@ -84,7 +84,7 @@ function setSeo(title:string,description:string):void{
  const twitterDescription=document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]');
  if(twitterDescription)twitterDescription.content=description;
 
- const siteUrl="https://flythebg.com/";
+ const siteUrl="https://www.flythebg.com/";
  const organizationId=siteUrl+"#organization";
  const websiteId=siteUrl+"#website";
  const toolRoutes=new Set<string>(["/remove-bg","/image-compressor","/video-compressor","/passport-photo"]);

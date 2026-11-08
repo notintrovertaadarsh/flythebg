@@ -225,7 +225,6 @@ function shell(content:string,title:string):string{
   "/accessibility":"FlyThe BG accessibility statement covering touch controls, keyboard use, reduced motion and reporting problems.",
   "/security":"FlyThe BG security guidance and private vulnerability reporting process.",
   "/cookies":"FlyThe BG notice about cookies, essential storage and opt-in analytics.",
-  "/refunds":"FlyThe BG refund policy for free tools and optional external developer support.",
   "/data-requests":"Submit a privacy, access, correction, consent withdrawal or data deletion request without an account.",
   "/affiliates":"FlyThe BG affiliate, advertising and referral disclosure.",
   "/changelog":"Recent FlyThe BG product, privacy, navigation and reliability changes.",

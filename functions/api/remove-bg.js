@@ -328,7 +328,7 @@ function dataUrl(bytes, type) {
 async function outputResponse(value, token) {
   if (typeof value === "string" && /^https?:\/\//i.test(value)) {
     const url = new URL(value);
-    if (url.protocol !== "https:" || !url.hostname.endsWith(".hf.space")) throw new Error("AI result URL is not a Hugging Face Space.");
+    if (url.protocol !== "https:" || url.hostname !== new URL(SPACE_URL).hostname) throw new Error("AI result URL is not the configured Hugging Face Space.");
     const response = await fetch(url, { headers: { Authorization: "Bearer " + token } });
     if (!response.ok) throw new Error("AI result could not be retrieved.");
     return response;
@@ -354,6 +354,7 @@ async function outputResponse(value, token) {
 }
 
 export async function onRequest(context) {
+  if (!originAllowed(context.request)) return fail("Request origin is not allowed.", 403, context.request);
   if (context.request.method === "OPTIONS") return new Response(null, { status: 204, headers: headers(context.request) });
   if (context.request.method !== "POST") return fail("POST one image to this endpoint.", 405, context.request);
 

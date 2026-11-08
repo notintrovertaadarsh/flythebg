@@ -98,7 +98,9 @@ if (!api.includes("new URL(SPACE_URL).hostname")) throw new Error("Background AP
 if (!api.includes("MAX_OUTPUT_BYTES")) throw new Error("Background API output-size validation missing");
 if (!robots.includes("Disallow: /api/") || !robots.includes("Sitemap: https://www.flythebg.com/sitemap.xml")) throw new Error("Robots policy missing API exclusion or sitemap");
 if (!ads.includes("google.com, pub-7486274445029717, DIRECT, f08c47fec0942fa0")) throw new Error("ads.txt seller declaration missing");
-if (!html.includes("20261108-legal-4")) throw new Error("HTML asset cache key was not refreshed");
+const appCacheKey=html.match(/<script\b[^>]*src=["']\/assets\/app\.js\?v=([^"'&]+)/i)?.[1];
+const styleCacheKey=html.match(/<link\b[^>]*href=["']\/assets\/site\.css\?v=([^"'&]+)/i)?.[1];
+if (!appCacheKey || appCacheKey !== styleCacheKey || !/^\d{8}-[a-z0-9-]+$/i.test(appCacheKey)) throw new Error("HTML app and stylesheet must share a date-stamped cache key");
 if (!css.includes(".skip-link:focus")) throw new Error("Keyboard skip-link styling missing");
 
 

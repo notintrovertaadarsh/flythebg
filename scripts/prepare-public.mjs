@@ -2,7 +2,6 @@ import { cp, mkdir, rm } from "node:fs/promises";
 
 await rm("public", { recursive: true, force: true });
 await mkdir("public/assets", { recursive: true });
-await mkdir("public/.well-known", { recursive: true });
 
 await cp("index.html", "public/index.html");
 await cp("assets/app.js", "public/assets/app.js");
@@ -14,9 +13,8 @@ await cp("assets/pill-nav.js", "public/assets/pill-nav.js");
 await cp("assets/flythebg-home.css", "public/assets/flythebg-home.css");
 await cp("assets/flythebg-home-fixes.css", "public/assets/flythebg-home-fixes.css");
 
-for (const file of ["robots.txt", "sitemap.xml", "security.txt", "ads.txt", "site.webmanifest", "llms.txt"]) {
+for (const file of ["robots.txt", "sitemap.xml", "ads.txt", "site.webmanifest", "llms.txt"]) {
   await cp(file, "public/" + file);
 }
-await cp("security.txt", "public/.well-known/security.txt");
 
 console.log("Prepared public/ for Cloudflare Workers deployment.");
